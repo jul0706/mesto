@@ -1,0 +1,8 @@
+.place__title-form {
+    display: flex;
+    justify-content: space-between;
+    position:absolute;
+    top: 25px;
+    left: 21px;
+    width: 246px;
+}

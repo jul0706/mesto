@@ -1,0 +1,7 @@
+.place__like-button {
+    background: inherit;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    padding: 0;
+}
