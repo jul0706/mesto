@@ -1,0 +1,10 @@
+.form-edit-profile__input {
+    border: none;
+    border-bottom: 1px rgba(84, 84, 84, 0.7) solid;
+    width: 358px;
+    padding: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    
+}

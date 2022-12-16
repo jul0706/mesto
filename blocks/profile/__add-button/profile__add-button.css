@@ -9,4 +9,12 @@
     height: 50px;
     margin: 0 auto;
     cursor: pointer;
+    background-image: url(../../../images/plus.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.profile__add-button:hover {
+    border: 2px solid #999999;
+    background-image: url(../../../images/plus-hover.svg);
 }

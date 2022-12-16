@@ -8,4 +8,12 @@
     background: inherit;
     border: 1px solid #FFFFFF;
     cursor: pointer;
+    background-image: url(../../../images/pencil.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
     }
+
+.profile__edit-button:hover {
+    border: 1px solid #999999;
+    background-image: url(../../../images/pencil-hover.svg);
+}
