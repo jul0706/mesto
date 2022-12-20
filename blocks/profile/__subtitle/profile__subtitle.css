@@ -3,7 +3,9 @@
     font-size: 14px;
     line-height: 17px;
     text-align: center;
-    margin: 0 auto 36px auto;
+    margin: 0 auto;
+    padding-bottom: 36px;
+    box-sizing: border-box;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
