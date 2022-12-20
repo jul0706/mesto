@@ -4,4 +4,17 @@
     line-height: 33px;
     text-align: center;
     margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-block-start: 0;
+    margin-block-end: 0;    
+}
+
+@media screen and (min-width: 924px) {
+    .profile__title {
+        text-align: left;
+        font-size: 42px;
+        line-height: 48px;
+    }
 }

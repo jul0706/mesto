@@ -31,15 +31,5 @@
 @import url(../blocks/popup/_is-opened/popup_is-opened.css);
 @import url(../blocks/popup-container/popup-container.css);
 @import url(../blocks/popup-container/__close-icon/popup-container__close-icon.css);
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
+@import url(../blocks/profile/__title-and-subtitle-form/profile__title-and-subtitle-form.css);
+@import url(../blocks/profile/__form-add/profile__form-add.css);

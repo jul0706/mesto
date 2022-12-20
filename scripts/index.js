@@ -4,8 +4,8 @@ const popupCloseIconElement = popupElement.querySelector('.popup-container__clos
 const editButtonElement = document.querySelector('.profile__edit-button'); //находим кнопку "изменить"
 const formElement = document.querySelector('.form-edit-profile'); // Находим форму в DOM
 // Находим поля формы в DOM
-let nameInput = formElement.querySelector('.form-edit-profile__input_name');
-let jobInput = formElement.querySelector('.form-edit-profile__input_job');
+let nameInput = formElement.querySelector('.form-edit-profile__input_type_name');
+let jobInput = formElement.querySelector('.form-edit-profile__input_type_job');
 
 //Функция открытия формы 
 const popupOpen = function () {
@@ -18,10 +18,10 @@ const popupClose = function () {
 }
 
 //назначаем кнопке редактирования обработчик события
-editButtonElement.addEventListener('click',popupOpen);
+editButtonElement.addEventListener('click', popupOpen);
 
 // назначаем кнопке закрытия формы обработчик события
-popupCloseIconElement.addEventListener('click',popupClose);
+popupCloseIconElement.addEventListener('click', popupClose);
 
 
 // Обработчик «отправки» формы
@@ -42,11 +42,12 @@ function handleFormSubmit (evt) {
     profileSubtitleElement.textContent = jobInputValue;
     
     popupClose(); //закрываем форму
+};
 
-}
 
+formElement.addEventListener('submit', handleFormSubmit); //добавлем обработчек событию отправки формы
 
-    popupElement.addEventListener ('keydown', function (evt){
+popupElement.addEventListener ('keydown', function (evt){ //добавляем обработчик на клавишу Enter
         if (evt.code === 'Enter') {
             formElement.submit();
         }
@@ -54,4 +55,4 @@ function handleFormSubmit (evt) {
 
 
 
-formElement.addEventListener('submit', handleFormSubmit); //добавлем обработчек событию отправки формы
+

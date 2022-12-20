@@ -1,3 +1,13 @@
 .profile {
     margin-bottom: 36px;
 }
+
+
+@media screen and (min-width: 924px) {
+    .profile {
+        display: grid;
+        grid-template-columns: 172px 426px 282px;
+        max-width: 880px;
+        margin: 0 auto 47px auto;
+    }
+    }

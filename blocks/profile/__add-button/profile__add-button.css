@@ -12,6 +12,7 @@
     background-image: url(../../../images/plus.svg);
     background-repeat: no-repeat;
     background-position: center center;
+    background-size: 16px;
 }
 
 .profile__add-button:hover {

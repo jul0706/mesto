@@ -9,6 +9,7 @@
     border: 1px solid #FFFFFF;
     cursor: pointer;
     background-image: url(../../../images/pencil.svg);
+    background-size: 7.5px;
     background-repeat: no-repeat;
     background-position: center center;
     }
@@ -16,4 +17,13 @@
 .profile__edit-button:hover {
     border: 1px solid #999999;
     background-image: url(../../../images/pencil-hover.svg);
+}
+
+@media screen and (min-width: 924px) {
+    .profile__edit-button {
+        width: 24px;
+        height: 24px;
+        background-size: 10px; 
+    }
+    
 }
