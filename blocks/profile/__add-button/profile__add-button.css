@@ -5,6 +5,7 @@
     box-sizing: border-box;
     background: inherit;
     border: 2px solid #FFFFFF;
+    border-radius: 2px;
     width: 282px;
     height: 50px;
     margin: 0 auto;
@@ -16,6 +17,13 @@
 }
 
 .profile__add-button:hover {
-    border: 2px solid #999999;
-    background-image: url(../../../images/plus-hover.svg);
+    opacity: 0.6;
+}
+
+@media screen and (min-width: 924px) {
+    .profile__add-button {
+        width: 150px;
+        background-size: 22px;
+        align-self: center;
+    }
 }

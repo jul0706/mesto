@@ -1,9 +1,15 @@
 .form-edit-profile__input {
     border: none;
-    border-bottom: 1px rgba(84, 84, 84, 0.7) solid;
-    width: 358px;
+    border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
+    width: 238px;
     padding: 0;
     font-weight: 400;
     font-size: 14px;
-    line-height: 17px;   
+    line-height: 17px;  
+}
+
+@media screen and (min-width: 1024px) {
+    .form-edit-profile__input {
+        width: 358px;
+    }
 }

@@ -9,7 +9,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 336px;
+    max-width: 282px;
     margin-block-start: 0;
     margin-block-end: 0;
 }
@@ -21,5 +21,6 @@
         font-size: 18px;
         line-height: 22px;
         padding: 0;
+        max-width: 336px;
     }
 }

@@ -15,8 +15,7 @@
 }
 
 .profile__edit-button:hover {
-    border: 1px solid #999999;
-    background-image: url(../../../images/pencil-hover.svg);
+    opacity: 0.6;
 }
 
 @media screen and (min-width: 924px) {

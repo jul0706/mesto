@@ -17,111 +17,81 @@
         <!--Основное содержание страницы-->
         <main class="main">
             <!--Блок profile-->
-            <div class="profile">
+            <section class="profile">
                 <img src="./images/kusto.jpg" alt="портрет Жака Ив Кусто" class="profile__avatar">  <!--Аватар-->
                 <!--Контейнер для заголовка, подзаголовка  на 1024+-->
                 <div class="profile__title-and-subtitle-form"> 
                     <div class="profile__title-form"> <!--Контейнер для заголовка с кнопкой-->
-                        <h1 class="profile__title">
-                            Жак-Ив Кусто
-                        </h1>
-                        <button class="profile__edit-button"></button> <!--Кнопка "редактировать"-->
+                        <h1 class="profile__title">Жак-Ив Кусто</h1>
+                        <button type="button" class="profile__edit-button" aria-label="кнопка редактирования"></button> <!--Кнопка "редактировать"-->
                     </div> <!--Конец контейнера-->
-                    <p class="profile__subtitle">
-                        Исследователь океана
-                    </p>
+                    <p class="profile__subtitle">Исследователь океана</p>
                 </div> 
-                <form action="#" class="profile__form-add">  <!--Кнопка "добавить"-->
-                    <button class="profile__add-button"></button>
-                </form>
-            </div>
+                <button type="button" class="profile__add-button" aria-label="кнопка добавления карточки"></button><!--Кнопка "добавить"-->
+            </section>
                 <!--Блок Places-->
-            <div class="places">
+            <section class="places">
                 <!--Контейнер для place-->
                 <article class="place"> 
                     <img src="./images/abhazia.jpg" alt=" пологие горы на берегу моря" class="place__image"> <!--Изобажение-->
                     <div class="place__caption"> <!--Контейнер для нижней белой части-->
-                        <div class="place__title-form"> <!--Контейнер для подписи к изображению-->
-                            <h2 class="place__title">
-                                Абхазия
-                            </h2>
-                            <form action="#" class="place__form">
-                                <button class="place__like-button"></button><!--Кнопка "лайк"-->
-                            </form>
-                        </div>
+                        <h2 class="place__title">
+                            Абхазия
+                        </h2>
+                        <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
                     </div>
                 </article>
                 <!--Контейнер для place-->
                 <article class="place"> 
                     <img src="./images/ayu-dag.jpg" alt="крутая гора, спускающаяся в море" class="place__image"> <!--Изобажение-->
                     <div class="place__caption"> <!--Контейнер для нижней белой части-->
-                        <div class="place__title-form"> <!--Контейнер для подписи к изображению-->
-                            <h2 class="place__title">
-                                гора Аю-Даг
-                            </h2>
-                            <form action="#" class="place__form">
-                                <button class="place__like-button"></button><!--Кнопка "лайк"-->
-                            </form>
-                        </div>
+                        <h2 class="place__title">
+                            гора Аю-Даг
+                        </h2>
+                        <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
                     </div>
                 </article> 
                 <!--Контейнер для place-->
                 <article class="place"> 
                     <img src="./images/bannoe.jpg" alt="алый закат на озере" class="place__image"> <!--Изобажение-->
                     <div class="place__caption"> <!--Контейнер для нижней белой части-->
-                        <div class="place__title-form"> <!--Контейнер для подписи к изображению-->
-                            <h2 class="place__title">
-                                озеро Банное (Якты-Куль)
-                            </h2>
-                            <form action="#" class="place__form">
-                                <button class="place__like-button"></button><!--Кнопка "лайк"-->
-                            </form>
-                        </div>
+                        <h2 class="place__title">
+                            озеро Банное (Якты-Куль)
+                        </h2>
+                        <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
                     </div>
                 </article> 
                 <!--Контейнер для place-->
                 <article class="place"> 
                     <img src="./images/bashkortostan.jpg" alt="горы на берегу реки" class="place__image"> <!--Изобажение-->
                     <div class="place__caption"> <!--Контейнер для нижней белой части-->
-                        <div class="place__title-form"> <!--Контейнер для подписи к изображению-->
-                            <h2 class="place__title">
-                                республика Башкортостан
-                            </h2>
-                            <form action="#" class="place__form">
-                                <button class="place__like-button"></button><!--Кнопка "лайк"-->
-                            </form>
-                        </div>
+                        <h2 class="place__title">
+                            республика Башкортостан
+                        </h2>
+                        <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
                     </div>
                 </article> 
                 <!--Контейнер для place-->
                 <article class="place"> 
                     <img src="./images/gurzuf.jpg" alt="красивый лес на берегу моря" class="place__image"> <!--Изобажение-->
                     <div class="place__caption"> <!--Контейнер для нижней белой части-->
-                        <div class="place__title-form"> <!--Контейнер для подписи к изображению-->
-                            <h2 class="place__title">
-                                Гурзуф
-                            </h2>
-                            <form action="#" class="place__form">
-                                <button class="place__like-button"></button><!--Кнопка "лайк"-->
-                            </form>
-                        </div>
+                        <h2 class="place__title">
+                            Гурзуф
+                        </h2>
+                        <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
                     </div>
                 </article> 
                 <!--Контейнер для place-->
                 <article class="place"> 
                     <img src="./images/magnitogorsk.jpg" alt="вид на город, промышленные дымящие трубы" class="place__image"> <!--Изобажение-->
                     <div class="place__caption"> <!--Контейнер для нижней белой части-->
-                        <div class="place__title-form"> <!--Контейнер для подписи к изображению-->
-                            <h2 class="place__title">
-                                Магнитогорск
-                            </h2>
-                            <form action="#" class="place__form">
-                                <button class="place__like-button"></button><!--Кнопка "лайк"-->
-                            </form>
-                        </div>
+                        <h2 class="place__title">
+                            Магнитогорск
+                        </h2>
+                        <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
                     </div>
                 </article> 
-            </div>
+            </section>
         </main>
         <!--Футер-->
         <footer class="footer">
@@ -130,23 +100,23 @@
             </p>
         </footer>        
         <!--Попап: Форма редактирования профиля-->
-        <section class="popup"> <!--Попап на всю страницу-->
+        <div class="popup"> <!--Попап на всю страницу-->
             <div class="popup-container"> <!--Окно формы-->
                 <button class="popup-container__close-icon"></button> <!--Кнопка закрытия-->
-                <form action="#" class="form-edit-profile"> <!--Форма-->
-                    <div class="form-edit-profile__container"> <!--Контейнер для стилизации формы-->
+                <form name="profile-form" action="#" class="form-edit-profile"> <!--Форма-->
+                    
                         <h2 class="form-edit-profile__title">
                             Редактировать профиль
                         </h2>
                         <fieldset class="form-edit-profile__inputs">
-                            <input type="text" class=" form-edit-profile__input form-edit-profile__input_type_name"  placeholder="Жак-Ив Кусто">
-                            <input type="text" class="form-edit-profile__input form-edit-profile__input_type_job"  placeholder="Исследователь океана">
+                            <input type="text" name="name" class="form-edit-profile__input form-edit-profile__input_type_name" placeholder="Ваше имя">
+                            <input type="text" name="job" class="form-edit-profile__input form-edit-profile__input_type_job" placeholder="Ваш род деятельности">
                         </fieldset>
                         <button type="submit" class="form-edit-profile__button-save">Сохранить</button>
-                    </div>
+                    
                 </form>
             </div>
-        </section>
+        </div>
     </div>
     <script src="./scripts/index.js"></script>
 </body>

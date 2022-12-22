@@ -9,12 +9,19 @@
 
 @media screen and (min-width: 622px) {
     .footer {
-    width: 602px;
+        width: 602px;
     }
 }
 
 @media screen and (min-width: 924px) {
     .footer {
-    width: 880px;
+        width: 880px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .footer {
+        font-size: 18px;
+        line-height: 22px;
     }
 }

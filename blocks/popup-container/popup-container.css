@@ -1,5 +1,10 @@
 .popup-container {
     position: relative;
-    width: 430px;
-    height: 330px;
+    width: 282px;
+}
+
+@media screen and (min-width: 1024px) {
+    .popup-container {
+        width: 430px;
+    }
 }

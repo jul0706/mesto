@@ -1,11 +1,3 @@
 .place__like-button_active {
-    background: inherit;
-    cursor: pointer;
-    width: 22px;
-    height: 19px;
-    border: none;
-    padding: 0;
     background-image: url(../../../../images/like-active.svg);
-    background-repeat: no-repeat;
-    background-position: center center;
 }
