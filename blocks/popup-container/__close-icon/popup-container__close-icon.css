@@ -14,13 +14,13 @@
 }
 
 .popup-container__close-icon:hover {
-    background-image: url(../../../images/close-icon-hover.svg)
+    background-image: url(../../../images/close-icon-hover.svg);
 }
 
 @media screen and (min-width: 1024px) {
     .popup-container__close-icon {
         top: -32px;
-        right: -32px; 
+        right: -32px;
         width: 32px;
         height: 32px;
     }
