@@ -34,7 +34,14 @@ function handleFormSubmit (evt) {
     closePopup(); //закрываем форму
 };
 
-nameInput.addEventListener('click', function() { // добавляем обработчик очистки поля формы при клике
+
+formElement.addEventListener('submit', handleFormSubmit); //добавлем обработчек событию отправки формы
+
+editButtonElement.addEventListener('click', openPopup); //назначаем кнопке редактирования обработчик события
+
+popupCloseIconElement.addEventListener('click', closePopup); // назначаем кнопке закрытия формы обработчик события
+
+/*nameInput.addEventListener('click', function() { // добавляем обработчик очистки поля формы при клике
     nameInput.value = '';
     }
 );
@@ -42,12 +49,7 @@ nameInput.addEventListener('click', function() { // добавляем обра�
 jobInput.addEventListener('click', function() { // добавляем обработчик очистки поля формы при клике
     jobInput.value = '';
     }
-);
-formElement.addEventListener('submit', handleFormSubmit); //добавлем обработчек событию отправки формы
-
-editButtonElement.addEventListener('click', openPopup); //назначаем кнопке редактирования обработчик события
-
-popupCloseIconElement.addEventListener('click', closePopup); // назначаем кнопке закрытия формы обработчик события
+);*/
 
 
 

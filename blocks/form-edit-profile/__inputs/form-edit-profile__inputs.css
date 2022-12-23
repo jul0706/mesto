@@ -4,10 +4,10 @@
     grid-template-rows: repeat(2, 1fr);
     gap: 30px;
     justify-content: center;
-    margin: 0 22px 45px 22px;
+    margin: 0 22px 60px 22px;
     padding: 0;
     margin-inline-start: 0;
-    margin-inline-end: 0;    
+    margin-inline-end: 0;
 }
 
 @media screen and (min-width: 1024px) {
