@@ -9,6 +9,34 @@ const jobInput = formElement.querySelector('.form-edit-profile__input_type_job')
 // Находим элементы страницы, куда вставим значения полей формы
 const profileTitleElement = document.querySelector('.profile__title');   
 const profileSubtitleElement = document.querySelector('.profile__subtitle');
+//Находим элемент places
+const placesElement = document.querySelector('.places');
+const initialCards = [ //карточки по умолчанию
+    {
+        name: 'Абхазия',
+        link: './images/abhazia.jpg'
+    },
+    {
+        name: 'гора Аю-Даг',
+        link: './images/ayu-dag.jpg'
+    },
+    {
+        name: 'озеро Банное (Якты-Куль)',
+        link: './images/bannoe.jpg'
+    },
+    {
+        name: 'республика Башкортостан',
+        link: './images/bashkortostan.jpg'
+    },
+    {
+        name: 'Гурзуф',
+        link: './images/gurzuf.jpg'
+    },
+    {
+        name: 'Магнитогорск',
+        link: './images/magnitogorsk.jpg'
+    },
+];
 
 //Функция открытия формы 
 const openPopup = function () {
@@ -34,6 +62,15 @@ function handleFormSubmit (evt) {
     closePopup(); //закрываем форму
 };
 
+initialCards.forEach(function (item) { //каждую карточку из массива добавляем на страницу
+    let placeTemplate = placesElement.querySelector('#place__template').content; //получили доступ к содержимому template
+    let placeElement = placeTemplate.querySelector('.place').cloneNode(true); // копировали содержимое template (article)
+    let placeImageElement = placeElement.querySelector('.place__image'); //в переменную сохранили элемент изображения карточки
+    let placeTitleElement = placeElement.querySelector('.place__title'); //в переменную сохранили элемент названия карточки
+    placeImageElement.src = item.link; //присвоили ссылку на изображение карточки
+    placeTitleElement.textContent = item.name;// присвоили название карточки
+    placesElement.append(placeElement); //добавили карточку на страницу
+});
 
 formElement.addEventListener('submit', handleFormSubmit); //добавлем обработчек событию отправки формы
 

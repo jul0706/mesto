@@ -30,66 +30,16 @@
             </section>
                 <!--Блок Places-->
             <section class="places">
-                <!--Контейнер для place-->
-                <article class="place"> 
-                    <img src="./images/abhazia.jpg" alt=" пологие горы на берегу моря" class="place__image"> <!--Изобажение-->
-                    <div class="place__caption"> <!--Контейнер для нижней белой части-->
-                        <h2 class="place__title">
-                            Абхазия
-                        </h2>
-                        <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
-                    </div>
-                </article>
-                <!--Контейнер для place-->
-                <article class="place"> 
-                    <img src="./images/ayu-dag.jpg" alt="крутая гора, спускающаяся в море" class="place__image"> <!--Изобажение-->
-                    <div class="place__caption"> <!--Контейнер для нижней белой части-->
-                        <h2 class="place__title">
-                            гора Аю-Даг
-                        </h2>
-                        <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
-                    </div>
-                </article> 
-                <!--Контейнер для place-->
-                <article class="place"> 
-                    <img src="./images/bannoe.jpg" alt="алый закат на озере" class="place__image"> <!--Изобажение-->
-                    <div class="place__caption"> <!--Контейнер для нижней белой части-->
-                        <h2 class="place__title">
-                            озеро Банное (Якты-Куль)
-                        </h2>
-                        <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
-                    </div>
-                </article> 
-                <!--Контейнер для place-->
-                <article class="place"> 
-                    <img src="./images/bashkortostan.jpg" alt="горы на берегу реки" class="place__image"> <!--Изобажение-->
-                    <div class="place__caption"> <!--Контейнер для нижней белой части-->
-                        <h2 class="place__title">
-                            республика Башкортостан
-                        </h2>
-                        <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
-                    </div>
-                </article> 
-                <!--Контейнер для place-->
-                <article class="place"> 
-                    <img src="./images/gurzuf.jpg" alt="красивый лес на берегу моря" class="place__image"> <!--Изобажение-->
-                    <div class="place__caption"> <!--Контейнер для нижней белой части-->
-                        <h2 class="place__title">
-                            Гурзуф
-                        </h2>
-                        <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
-                    </div>
-                </article> 
-                <!--Контейнер для place-->
-                <article class="place"> 
-                    <img src="./images/magnitogorsk.jpg" alt="вид на город, промышленные дымящие трубы" class="place__image"> <!--Изобажение-->
-                    <div class="place__caption"> <!--Контейнер для нижней белой части-->
-                        <h2 class="place__title">
-                            Магнитогорск
-                        </h2>
-                        <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
-                    </div>
-                </article> 
+                <!--Заготовка для карточки-->
+                <template id="place__template">
+                    <article class="place">
+                        <img class="place__image"> <!--Изобажение-->
+                        <div class="place__caption"> <!--Контейнер для нижней белой части-->
+                                <h2 class="place__title"></h2>
+                                <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
+                        </div>
+                    </article>
+                </template>
             </section>
         </main>
         <!--Футер-->
