@@ -19,11 +19,11 @@
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/place/__like-button/_active/place__like-button_active.css);
 @import url(../blocks/header/header.css);
-@import url(../blocks/form-edit-profile/__title/form-edit-profile__title.css);
-@import url(../blocks/form-edit-profile/form-edit-profile.css);
-@import url(../blocks/form-edit-profile/__inputs/form-edit-profile__inputs.css);
-@import url(../blocks/form-edit-profile/__input/form-edit-profile__input.css);
-@import url(../blocks/form-edit-profile/__button-save/form-edit-profile__button-save.css);
+@import url(../blocks/form-popup/__title/form-popup__title.css);
+@import url(../blocks/form-popup/form-popup.css);
+@import url(../blocks/form-popup/__inputs/form-popup__inputs.css);
+@import url(../blocks/form-popup/__input/form-popup__input.css);
+@import url(../blocks/form-popup/__button-save/form-popup__button-save.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_is-opened/popup_is-opened.css);
 @import url(../blocks/popup-container/popup-container.css);
