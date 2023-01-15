@@ -29,3 +29,4 @@
 @import url(../blocks/popup-container/popup-container.css);
 @import url(../blocks/popup-container/__close-icon/popup-container__close-icon.css);
 @import url(../blocks/profile/__title-and-subtitle-form/profile__title-and-subtitle-form.css);
+@import url(../blocks/place/__delete-icon/place__delete-icon.css);

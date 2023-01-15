@@ -18,6 +18,7 @@ const profileTitleElement = document.querySelector('.profile__title');
 const profileSubtitleElement = document.querySelector('.profile__subtitle');
 //элемент places
 const placesElement = document.querySelector('.places');
+
 //карточки по умолчанию
 const initialCards = [ 
     {
@@ -45,6 +46,16 @@ const initialCards = [
         link: './images/magnitogorsk.jpg'
     },
 ];
+
+initialCards.forEach(function (item) { //каждую карточку из массива добавляем на страницу
+    let placeTemplate = placesElement.querySelector('#place__template').content; //получили доступ к содержимому template
+    let placeElement = placeTemplate.querySelector('.place').cloneNode(true); // копировали содержимое template (article)
+    let placeImageElement = placeElement.querySelector('.place__image'); //в переменную сохранили элемент изображения карточки
+    let placeTitleElement = placeElement.querySelector('.place__title'); //в переменную сохранили элемент названия карточки
+    placeImageElement.src = item.link; //присвоили ссылку на изображение карточки
+    placeTitleElement.textContent = item.name;// присвоили название карточки
+    placesElement.append(placeElement); //добавили карточку на страницу
+});
 
 //Функция открытия формы редактирования профиля
 const openPopupEditProfile = function () {
@@ -80,39 +91,57 @@ function handleFormSubmit (evt) {
     closePopup(); //закрываем форму
 };
 
-initialCards.forEach(function (item) { //каждую карточку из массива добавляем на страницу
-    let placeTemplate = placesElement.querySelector('#place__template').content; //получили доступ к содержимому template
-    let placeElement = placeTemplate.querySelector('.place').cloneNode(true); // копировали содержимое template (article)
-    let placeImageElement = placeElement.querySelector('.place__image'); //в переменную сохранили элемент изображения карточки
-    let placeTitleElement = placeElement.querySelector('.place__title'); //в переменную сохранили элемент названия карточки
-    placeImageElement.src = item.link; //присвоили ссылку на изображение карточки
-    placeTitleElement.textContent = item.name;// присвоили название карточки
-    placesElement.append(placeElement); //добавили карточку на страницу
-});
-
 //обработчик отправки формы добавления новой карточки пользователем
 const addCardByUser = function (evt) {
-    evt.preventDefault(); // отмена стандартную отправку формы
+    evt.preventDefault(); // отмена стандартной отправки формы
     let placeTemplate = placesElement.querySelector('#place__template').content; //получили доступ к содержимому template
     let placeElement = placeTemplate.querySelector('.place').cloneNode(true); // копировали содержимое template (article)
     let placeImageElement = placeElement.querySelector('.place__image'); //в переменную сохранили элемент изображения карточки
     let placeTitleElement = placeElement.querySelector('.place__title'); //в переменную сохранили элемент названия карточки
-    placeImageElement.textContent = placeInput.value;
-    placeTitleElement.textContent = imageLinkInput.value;
-    placesElement.append(placeElement); //добавили карточку на страницу
+    placeImageElement.src = imageLinkInput.value; 
+    placeTitleElement.textContent = placeInput.value;
+    placesElement.prepend(placeElement); //добавили карточку на страницу
     closePopupAddButton();
 }
-formProfileElement.addEventListener('submit', handleFormSubmit); //добавлем обработчек событию отправки формы редактирования профиля
+
+const likeButtonsElement = document.querySelectorAll('.place__like-button'); //nodeList кнопок "понравилось"
+const arrayLikeButtonsElement = Array.from(likeButtonsElement); // массив кнопок "понравилось"
+function listenLikedButtons(item) { //обработчик отметки "понравилось"
+    item.addEventListener('click', function(evt) {
+        let likeButtonElement = evt.target; // кнопка, которая вызвала событие
+        if (likeButtonElement.classList.contains('place__like-button_active')) { //проверяем наличие класса
+            likeButtonElement.classList.remove('place__like-button_active')
+        } else {
+            likeButtonElement.classList.add('place__like-button_active');
+        }
+    })
+};
+
+const deleteButtonsElement = document.querySelectorAll('.place__delete-icon') // nodeList кнопок "удалить"
+const arrayDeleteButtonsElement = Array.from(deleteButtonsElement); // массив кнопок "удалить"
+function listenDeleteButtons(item) { //обработчик кнопки "удалить"
+    item.addEventListener('click', function(evt) {
+        let deletedCardElement = evt.target.parentElement;
+        deletedCardElement.remove();
+    })
+};
+
+formProfileElement.addEventListener('submit', handleFormSubmit); //назначаем обработчик событию отправки формы редактирования профиля
 
 editButtonElement.addEventListener('click', openPopupEditProfile); //назначаем кнопке редактирования обработчик события
 
 popupProfileCloseIconElement.addEventListener('click', closePopup); // назначаем кнопке закрытия формы обработчик события
 
-formAddButtonElement.addEventListener('submit',addCardByUser);
+formAddButtonElement.addEventListener('submit',addCardByUser); // назначаем кнопке "создать" бработчик события
 
-addButtonElement.addEventListener('click', openPopupAddButton); //назначаем кнопке добавления карточки обработчик события
+addButtonElement.addEventListener('click', openPopupAddButton); //назначаем кнопке "добавить" обработчик события
 
 popupAddButtonCloseIconElement.addEventListener('click', closePopupAddButton); //назначаем кнопке закрытия формы добавления карточки обработчик события
+
+arrayLikeButtonsElement.forEach(listenLikedButtons); //назначаем всем кнопкам "понравилось" обработчик события
+
+arrayDeleteButtonsElement.forEach(listenDeleteButtons); // назначаем всем кнопкам "удалить" обработчик события
+
 
 /*nameInput.addEventListener('click', function() { // добавляем обработчик очистки поля формы при клике
     nameInput.value = '';
