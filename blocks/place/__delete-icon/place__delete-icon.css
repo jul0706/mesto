@@ -14,5 +14,5 @@
 }
 
 .place__delete-icon:hover {
-    background-image: url(../../../images/delete-icon-hover.svg);
+    opacity: 0.6;
 }

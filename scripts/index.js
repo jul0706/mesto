@@ -19,6 +19,8 @@ const profileSubtitleElement = document.querySelector('.profile__subtitle');
 //элемент places
 const placesElement = document.querySelector('.places');
 
+
+
 //карточки по умолчанию
 const initialCards = [ 
     {
@@ -46,16 +48,6 @@ const initialCards = [
         link: './images/magnitogorsk.jpg'
     },
 ];
-
-initialCards.forEach(function (item) { //каждую карточку из массива добавляем на страницу
-    let placeTemplate = placesElement.querySelector('#place__template').content; //получили доступ к содержимому template
-    let placeElement = placeTemplate.querySelector('.place').cloneNode(true); // копировали содержимое template (article)
-    let placeImageElement = placeElement.querySelector('.place__image'); //в переменную сохранили элемент изображения карточки
-    let placeTitleElement = placeElement.querySelector('.place__title'); //в переменную сохранили элемент названия карточки
-    placeImageElement.src = item.link; //присвоили ссылку на изображение карточки
-    placeTitleElement.textContent = item.name;// присвоили название карточки
-    placesElement.append(placeElement); //добавили карточку на страницу
-});
 
 //Функция открытия формы редактирования профиля
 const openPopupEditProfile = function () {
@@ -94,19 +86,42 @@ function handleFormSubmit (evt) {
 //обработчик отправки формы добавления новой карточки пользователем
 const addCardByUser = function (evt) {
     evt.preventDefault(); // отмена стандартной отправки формы
+    placesElement.prepend(getNewCard(placeInput.value, imageLinkInput.value)); //добавили карточку на страницу
+    closePopupAddButton();
+}
+
+
+
+initialCards.forEach(function (item) { //каждую карточку из массива добавляем на страницу
+    placesElement.append(getNewCard(item.name, item.link));
+});
+
+//кнопки "понравилось"
+
+const likeButtonsElement = document.querySelectorAll('.place__like-button'); //nodeList кнопок "понравилось"
+const arrayLikeButtonsElement = Array.from(likeButtonsElement); // массив кнопок "понравилось"
+arrayLikeButtonsElement.forEach(listenLikedButtons); //назначаем всем кнопкам "понравилось" обработчик события
+
+
+//кнопки "удалить"
+
+const deleteButtonsElement = document.querySelectorAll('.place__delete-icon'); // nodeList кнопок "удалить"
+const arrayDeleteButtonsElement = Array.from(deleteButtonsElement); // массив кнопок "удалить"
+arrayDeleteButtonsElement.forEach(listenDeleteButtons); // назначаем всем кнопкам "удалить" обработчик события
+
+function getNewCard (title, image) {
     let placeTemplate = placesElement.querySelector('#place__template').content; //получили доступ к содержимому template
     let placeElement = placeTemplate.querySelector('.place').cloneNode(true); // копировали содержимое template (article)
     let placeImageElement = placeElement.querySelector('.place__image'); //в переменную сохранили элемент изображения карточки
     let placeTitleElement = placeElement.querySelector('.place__title'); //в переменную сохранили элемент названия карточки
-    placeImageElement.src = imageLinkInput.value; 
-    placeTitleElement.textContent = placeInput.value;
-    placesElement.prepend(placeElement); //добавили карточку на страницу
-    closePopupAddButton();
-}
+    placeTitleElement.textContent = title; 
+    placeImageElement.src = image;
+   
+    return placeElement;
+};
 
-const likeButtonsElement = document.querySelectorAll('.place__like-button'); //nodeList кнопок "понравилось"
-const arrayLikeButtonsElement = Array.from(likeButtonsElement); // массив кнопок "понравилось"
 function listenLikedButtons(item) { //обработчик отметки "понравилось"
+    
     item.addEventListener('click', function(evt) {
         let likeButtonElement = evt.target; // кнопка, которая вызвала событие
         if (likeButtonElement.classList.contains('place__like-button_active')) { //проверяем наличие класса
@@ -117,9 +132,9 @@ function listenLikedButtons(item) { //обработчик отметки "по�
     })
 };
 
-const deleteButtonsElement = document.querySelectorAll('.place__delete-icon') // nodeList кнопок "удалить"
-const arrayDeleteButtonsElement = Array.from(deleteButtonsElement); // массив кнопок "удалить"
+
 function listenDeleteButtons(item) { //обработчик кнопки "удалить"
+    
     item.addEventListener('click', function(evt) {
         let deletedCardElement = evt.target.parentElement;
         deletedCardElement.remove();
@@ -138,9 +153,10 @@ addButtonElement.addEventListener('click', openPopupAddButton); //назнача
 
 popupAddButtonCloseIconElement.addEventListener('click', closePopupAddButton); //назначаем кнопке закрытия формы добавления карточки обработчик события
 
-arrayLikeButtonsElement.forEach(listenLikedButtons); //назначаем всем кнопкам "понравилось" обработчик события
 
-arrayDeleteButtonsElement.forEach(listenDeleteButtons); // назначаем всем кнопкам "удалить" обработчик события
+
+
+
 
 
 /*nameInput.addEventListener('click', function() { // добавляем обработчик очистки поля формы при клике
@@ -152,7 +168,3 @@ jobInput.addEventListener('click', function() { // добавляем обраб
     jobInput.value = '';
     }
 );*/
-
-
-
-
