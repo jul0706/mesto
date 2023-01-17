@@ -7,6 +7,10 @@ const popupAddButtonElement = document.querySelector('.add-button__popup'); //п
 const addButtonElement = document.querySelector('.profile__add-button');//кнопка "добавить"
 const popupAddButtonCloseIconElement = document.querySelector('.add-button__popup-container__close-icon') //кнопка закрытия формы добавления карточки
 const formAddButtonElement = document.querySelector('.form-popup_type_add');//форма добавления карточки
+const popupImageFew = document.querySelector('.image-few__popup');//попап просмотра изображения
+const popupImageFewImgElement = document.querySelector('.image-figure__image'); // просматриваемое изображение
+const popupImageFewCaptionElement = document.querySelector('.image-figure__caption'); //подпись к изображению попапа
+const popupImageFewCloseIconElement = document.querySelector('.img-popup-container__close-icon'); //кнопка закрытия попапа просмотра изображения
 //поля формы редактирования профиля
 const nameInput = formProfileElement.querySelector('.form-popup__input_type_name');
 const jobInput = formProfileElement.querySelector('.form-popup__input_type_job');
@@ -71,6 +75,21 @@ const closePopupAddButton = function () {
     popupAddButtonElement.classList.remove('popup_is-opened');
 }
 
+//открытие попапа с изображением
+function openPopupImageFew (item) { 
+    item.addEventListener ('click', function(evt) {
+        let clickImageElement = evt.target //изображение, которое вызвало событие
+        popupImageFew.classList.add('popup_is-opened'); //открыть изображение
+        popupImageFewImgElement.src = clickImageElement.src;//присвоить изображению попапа ссылку изображения карточки
+        popupImageFewCaptionElement.textContent = evt.target.parentElement.querySelector('.place__title').textContent;//присвоить подписи изображения попапа название карточки
+    })
+}
+//закрытие попапа с изображением
+const closePopupImageFew = function () {
+    popupImageFew.classList.remove('popup_is-opened');
+}
+
+
 // Обработчик «отправки» формы редактирования профиля
 function handleFormSubmit (evt) {
 
@@ -96,39 +115,29 @@ initialCards.forEach(function (item) { //каждую карточку из ма
     placesElement.append(getNewCard(item.name, item.link));
 });
 
-//кнопки "понравилось"
 
-const likeButtonsElement = document.querySelectorAll('.place__like-button'); //nodeList кнопок "понравилось"
-const arrayLikeButtonsElement = Array.from(likeButtonsElement); // массив кнопок "понравилось"
-arrayLikeButtonsElement.forEach(listenLikedButtons); //назначаем всем кнопкам "понравилось" обработчик события
-
-
-//кнопки "удалить"
-
-const deleteButtonsElement = document.querySelectorAll('.place__delete-icon'); // nodeList кнопок "удалить"
-const arrayDeleteButtonsElement = Array.from(deleteButtonsElement); // массив кнопок "удалить"
-arrayDeleteButtonsElement.forEach(listenDeleteButtons); // назначаем всем кнопкам "удалить" обработчик события
 
 function getNewCard (title, image) {
     let placeTemplate = placesElement.querySelector('#place__template').content; //получили доступ к содержимому template
     let placeElement = placeTemplate.querySelector('.place').cloneNode(true); // копировали содержимое template (article)
     let placeImageElement = placeElement.querySelector('.place__image'); //в переменную сохранили элемент изображения карточки
     let placeTitleElement = placeElement.querySelector('.place__title'); //в переменную сохранили элемент названия карточки
-    placeTitleElement.textContent = title; 
-    placeImageElement.src = image;
-   
+    placeTitleElement.textContent = title; //добавляем названия
+    placeImageElement.src = image; //добавляем картинку
+    let placeLikeButton = placeElement.querySelector('.place__like-button');
+    listenLikedButtons(placeLikeButton); //назначили обработчик "понравилось"
+    let placeDeleteButton = placeElement.querySelector('.place__delete-icon');
+    listenDeleteButtons(placeDeleteButton); //назначили обработчик "удалить"
+    openPopupImageFew(placeImageElement);//назначили обработчик открытия попапа с изображением
     return placeElement;
 };
+
 
 function listenLikedButtons(item) { //обработчик отметки "понравилось"
     
     item.addEventListener('click', function(evt) {
         let likeButtonElement = evt.target; // кнопка, которая вызвала событие
-        if (likeButtonElement.classList.contains('place__like-button_active')) { //проверяем наличие класса
-            likeButtonElement.classList.remove('place__like-button_active')
-        } else {
-            likeButtonElement.classList.add('place__like-button_active');
-        }
+        likeButtonElement.classList.toggle('place__like-button_active');
     })
 };
 
@@ -140,6 +149,8 @@ function listenDeleteButtons(item) { //обработчик кнопки "уда
         deletedCardElement.remove();
     })
 };
+
+
 
 formProfileElement.addEventListener('submit', handleFormSubmit); //назначаем обработчик событию отправки формы редактирования профиля
 
@@ -153,7 +164,7 @@ addButtonElement.addEventListener('click', openPopupAddButton); //назнача
 
 popupAddButtonCloseIconElement.addEventListener('click', closePopupAddButton); //назначаем кнопке закрытия формы добавления карточки обработчик события
 
-
+popupImageFewCloseIconElement.addEventListener('click', closePopupImageFew); //назначаем кнопке закрытия попапа с изображением обработчик
 
 
 
