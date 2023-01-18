@@ -59,10 +59,6 @@ const initialCards = [
     },
 ];
 
-initialCards.forEach(function (item) { //каждую карточку из массива добавили на страницу
-    placesElement.append(getNewCard(item.name, item.link, item.alt));
-});
-
 //Функция открытия формы редактирования профиля
 const openPopupEditProfile = function () {
     popupProfileElement.classList.add('popup_is-opened');
@@ -146,7 +142,9 @@ function listenDeleteButtons(item) { //обработчик кнопки "уда
     })
 };
 
-
+initialCards.forEach(function (item) { //каждую карточку из массива добавили на страницу
+    placesElement.append(getNewCard(item.name, item.link, item.alt));
+});
 
 formProfileElement.addEventListener('submit', handleFormSubmit); //назначаем обработчик событию отправки формы редактирования профиля
 
@@ -161,9 +159,6 @@ addButtonElement.addEventListener('click', openPopupAddButton); //назнача
 popupAddButtonCloseIconElement.addEventListener('click', closePopupAddButton); //назначаем кнопке закрытия формы добавления карточки обработчик события
 
 popupImageFewCloseIconElement.addEventListener('click', closePopupImageFew); //назначаем кнопке закрытия попапа с изображением обработчик
-
-
-
 
 
 /*nameInput.addEventListener('click', function() { // добавляем обработчик очистки поля формы при клике
