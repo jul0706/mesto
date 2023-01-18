@@ -1,4 +1,4 @@
-.profile__add-button {
+.add-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,18 +10,18 @@
     height: 50px;
     margin: 0 auto;
     cursor: pointer;
-    background-image: url(../../../images/plus.svg);
+    background-image: url(../../images/plus.svg);
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 16px;
 }
 
-.profile__add-button:hover {
+.add-button:hover {
     opacity: 0.6;
 }
 
 @media screen and (min-width: 924px) {
-    .profile__add-button {
+    .add-button {
         width: 150px;
         background-size: 22px;
         align-self: center;

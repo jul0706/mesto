@@ -1,13 +1,13 @@
 //Объявляем переменные 
-const popupProfileElement = document.querySelector('.profile-popup'); //попап редактирования профиля
-const popupProfileCloseIconElement = popupProfileElement.querySelector('.profile__popup-container__close-icon'); //кнопка закрытия попапа редактирования профиля
+const popupProfileElement = document.querySelector('.profile__popup'); //попап редактирования профиля
+const popupProfileCloseIconElement = popupProfileElement.querySelector('.profile__close-icon'); //кнопка закрытия попапа редактирования профиля
 const editButtonElement = document.querySelector('.profile__edit-button'); //кнопка "изменить" профиль
 const formProfileElement = document.querySelector('.form-popup_type_profile'); // форма редактирования профиля
 const popupAddButtonElement = document.querySelector('.add-button__popup'); //попап добавления карточки
-const addButtonElement = document.querySelector('.profile__add-button');//кнопка "добавить"
-const popupAddButtonCloseIconElement = document.querySelector('.add-button__popup-container__close-icon') //кнопка закрытия формы добавления карточки
+const addButtonElement = document.querySelector('.add-button');//кнопка "добавить"
+const popupAddButtonCloseIconElement = document.querySelector('.add-button__close-icon') //кнопка закрытия формы добавления карточки
 const formAddButtonElement = document.querySelector('.form-popup_type_add');//форма добавления карточки
-const popupImageFew = document.querySelector('.image-few__popup');//попап просмотра изображения
+const popupImageFew = document.querySelector('.place__popup');//попап просмотра изображения
 const popupImageFewImgElement = document.querySelector('.image-figure__image'); // просматриваемое изображение
 const popupImageFewCaptionElement = document.querySelector('.image-figure__caption'); //подпись к изображению попапа
 const popupImageFewCloseIconElement = document.querySelector('.img-popup-container__close-icon'); //кнопка закрытия попапа просмотра изображения
@@ -29,29 +29,39 @@ const placesElement = document.querySelector('.places');
 const initialCards = [ 
     {
         name: 'Абхазия',
-        link: './images/abhazia.jpg'
+        link: './images/abhazia.jpg',
+        alt: 'набережая моря'
     },
     {
         name: 'гора Аю-Даг',
-        link: './images/ayu-dag.jpg'
+        link: './images/ayu-dag.jpg',
+        alt: 'гора опускается в море'
     },
     {
         name: 'озеро Банное (Якты-Куль)',
-        link: './images/bannoe.jpg'
+        link: './images/bannoe.jpg',
+        alt: 'красный закат на озере'
     },
     {
         name: 'республика Башкортостан',
-        link: './images/bashkortostan.jpg'
+        link: './images/bashkortostan.jpg',
+        alt: 'река среди гор'
     },
     {
         name: 'Гурзуф',
-        link: './images/gurzuf.jpg'
+        link: './images/gurzuf.jpg',
+        alt: 'море на фоне леса'
     },
     {
         name: 'Магнитогорск',
-        link: './images/magnitogorsk.jpg'
+        link: './images/magnitogorsk.jpg',
+        alt: 'дымящие трубы'
     },
 ];
+
+initialCards.forEach(function (item) { //каждую карточку из массива добавили на страницу
+    placesElement.append(getNewCard(item.name, item.link, item.alt));
+});
 
 //Функция открытия формы редактирования профиля
 const openPopupEditProfile = function () {
@@ -75,55 +85,44 @@ const closePopupAddButton = function () {
     popupAddButtonElement.classList.remove('popup_is-opened');
 }
 
-//открытие попапа с изображением
+//функция открытия попапа с изображением
 function openPopupImageFew (item) { 
     item.addEventListener ('click', function(evt) {
         let clickImageElement = evt.target //изображение, которое вызвало событие
         popupImageFew.classList.add('popup_is-opened'); //открыть изображение
         popupImageFewImgElement.src = clickImageElement.src;//присвоить изображению попапа ссылку изображения карточки
+        popupImageFewImgElement.alt = clickImageElement.alt; //присвоить подпись изображения
         popupImageFewCaptionElement.textContent = evt.target.parentElement.querySelector('.place__title').textContent;//присвоить подписи изображения попапа название карточки
     })
 }
-//закрытие попапа с изображением
+//функция закрытия попапа с изображением
 const closePopupImageFew = function () {
     popupImageFew.classList.remove('popup_is-opened');
 }
 
-
 // Обработчик «отправки» формы редактирования профиля
 function handleFormSubmit (evt) {
-
     evt.preventDefault(); // отмена стандартную отправку формы.
-
-    // Вставляем новые значения с помощью textContent
-    profileTitleElement.textContent = nameInput.value;  
+    profileTitleElement.textContent = nameInput.value;  // Вставляем новые значения
     profileSubtitleElement.textContent = jobInput.value;
-    
     closePopup(); //закрываем форму
 };
 
 //обработчик отправки формы добавления новой карточки пользователем
 const addCardByUser = function (evt) {
     evt.preventDefault(); // отмена стандартной отправки формы
-    placesElement.prepend(getNewCard(placeInput.value, imageLinkInput.value)); //добавили карточку на страницу
+    placesElement.prepend(getNewCard(placeInput.value, imageLinkInput.value, placeInput.value)); //добавили карточку на страницу
     closePopupAddButton();
 }
 
-
-
-initialCards.forEach(function (item) { //каждую карточку из массива добавляем на страницу
-    placesElement.append(getNewCard(item.name, item.link));
-});
-
-
-
-function getNewCard (title, image) {
+function getNewCard (title, image, alt) {
     let placeTemplate = placesElement.querySelector('#place__template').content; //получили доступ к содержимому template
     let placeElement = placeTemplate.querySelector('.place').cloneNode(true); // копировали содержимое template (article)
     let placeImageElement = placeElement.querySelector('.place__image'); //в переменную сохранили элемент изображения карточки
     let placeTitleElement = placeElement.querySelector('.place__title'); //в переменную сохранили элемент названия карточки
     placeTitleElement.textContent = title; //добавляем названия
     placeImageElement.src = image; //добавляем картинку
+    placeImageElement.alt = alt; //добавляем подпись
     let placeLikeButton = placeElement.querySelector('.place__like-button');
     listenLikedButtons(placeLikeButton); //назначили обработчик "понравилось"
     let placeDeleteButton = placeElement.querySelector('.place__delete-icon');
@@ -132,9 +131,7 @@ function getNewCard (title, image) {
     return placeElement;
 };
 
-
 function listenLikedButtons(item) { //обработчик отметки "понравилось"
-    
     item.addEventListener('click', function(evt) {
         let likeButtonElement = evt.target; // кнопка, которая вызвала событие
         likeButtonElement.classList.toggle('place__like-button_active');
@@ -143,9 +140,8 @@ function listenLikedButtons(item) { //обработчик отметки "по�
 
 
 function listenDeleteButtons(item) { //обработчик кнопки "удалить"
-    
     item.addEventListener('click', function(evt) {
-        let deletedCardElement = evt.target.parentElement;
+        let deletedCardElement = evt.target.parentElement; //карточка, на которой нажали кнопку "удалить"
         deletedCardElement.remove();
     })
 };

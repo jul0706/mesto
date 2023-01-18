@@ -1,10 +1,11 @@
-.popup-container__close-icon {
+.close-icon {
+    padding: 0;
     width: 20px;
     height: 20px;
     background: inherit;
     cursor: pointer;
     border: none;
-    background-image: url(../../../images/close-icon.svg);
+    background-image: url(../../images/close-icon.svg);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
@@ -13,14 +14,14 @@
     right: 0;
 }
 
-.popup-container__close-icon:hover {
-    background-image: url(../../../images/close-icon-hover.svg);
+.close-icon:hover {
+    background-image: url(../../images/close-icon-hover.svg);
 }
 
 @media screen and (min-width: 1024px) {
-    .popup-container__close-icon {
-        top: -32px;
-        right: -32px;
+    .close-icon {
+        top: -40px;
+        right: -40px;
         width: 32px;
         height: 32px;
     }

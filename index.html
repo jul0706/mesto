@@ -26,7 +26,7 @@
                     </div> <!--Конец контейнера-->
                     <p class="profile__subtitle">Исследователь океана</p>
                 </div> 
-                <button type="button" class="profile__add-button" aria-label="кнопка добавления карточки"></button><!--Кнопка "добавить"-->
+                <button type="button" class="add-button" aria-label="кнопка добавления карточки"></button><!--Кнопка "добавить"-->
             </section>
                 <!--Блок Places-->
             <section class="places">
@@ -50,9 +50,9 @@
             </p>
         </footer>        
         <!--Попап: Форма редактирования профиля-->
-        <div class="popup profile-popup"> <!--Попап на всю страницу-->
+        <div class="popup profile__popup"> <!--Попап на всю страницу-->
             <div class="popup-container profile__popup-container"> <!--Окно формы-->
-                <button class="popup-container__close-icon profile__popup-container__close-icon"></button> <!--Кнопка закрытия-->
+                <button class="close-icon profile__close-icon"></button> <!--Кнопка закрытия-->
                 <form name="profile-form" action="#" class="form-popup form-popup_type_profile"> <!--Форма-->
                     
                         <h2 class="form-popup__title">
@@ -70,7 +70,7 @@
         <!--Попап: Форма добавления карточки-->
         <div class="popup add-button__popup"> <!--Попап на всю страницу-->
             <div class="popup-container add-button__popup-container"> <!--Окно формы-->
-                <button class="popup-container__close-icon add-button__popup-container__close-icon"></button> <!--Кнопка закрытия-->
+                <button class="close-icon add-button__close-icon"></button> <!--Кнопка закрытия-->
                 <form name="add-card-form" action="#" class="form-popup form-popup_type_add"> <!--Форма-->
                     
                         <h2 class="form-popup__title">
@@ -87,9 +87,9 @@
         </div>
         <!--Попап просмотра изображения карточки-->
         
-            <div class="popup image-few__popup"> <!--Попап на всю страницу-->
+            <div class="popup place__popup"> <!--Попап на всю страницу-->
                 <div class="img-popup-container"> <!--Окно изображения-->
-                    <button class="img-popup-container__close-icon"></button> <!--Кнопка закрытия-->
+                    <button class="close-icon img-popup-container__close-icon"></button> <!--Кнопка закрытия-->
                     <figure class="image-figure">
                         <img class="image-figure__image" src="" alt="">
                         <figcaption class="image-figure__caption"></figcaption>
