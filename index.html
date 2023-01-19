@@ -58,8 +58,8 @@
                         Редактировать профиль
                     </h2>
                     <fieldset class="form-popup__inputs">
-                        <input type="text" name="name" class="form-popup__input form-popup__input_type_name" placeholder="Ваше имя">
-                        <input type="text" name="job" class="form-popup__input form-popup__input_type_job" placeholder="Ваш род деятельности">
+                        <input type="text" name="name" class="form-popup__input form-popup__input_type_name" placeholder="Ваше имя" required>
+                        <input type="text" name="job" class="form-popup__input form-popup__input_type_job" placeholder="Ваш род деятельности" required>
                     </fieldset>
                     <button type="submit" class="form-popup__button-save">Сохранить</button>                    
                 </form>
@@ -74,8 +74,8 @@
                         Новое место
                     </h2>
                     <fieldset class="form-popup__inputs">
-                        <input type="text" name="name" class="form-popup__input form-popup__input_type_place" placeholder="Название">
-                        <input type="text" name="job" class="form-popup__input form-popup__input_type_link" placeholder="Ссылка на картинку">
+                        <input type="text" name="place" class="form-popup__input form-popup__input_type_place" placeholder="Название" required>
+                        <input type="url" name="link" class="form-popup__input form-popup__input_type_link" placeholder="Ссылка на картинку" required>
                     </fieldset>
                     <button type="submit" class="form-popup__button-save">Создать</button>
                 </form>

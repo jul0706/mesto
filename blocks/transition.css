@@ -1,9 +1,0 @@
-.transition {
-    transition: opacity 0.5s ease;
-    animation: fadeOut ease 8s;
-}
-
-@keyframes fadeOut {
-    0% {opacity:1;}
-    100% {opacity:0;}
-  }

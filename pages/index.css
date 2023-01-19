@@ -30,11 +30,10 @@
 @import url(../blocks/close-icon/close-icon.css);
 @import url(../blocks/profile/__title-and-subtitle-form/profile__title-and-subtitle-form.css);
 @import url(../blocks/place/__delete-icon/place__delete-icon.css);
-@import url(../blocks/animation-popup/animaton-popup.css);
 @import url(../blocks/place/__popup/place__popup.css);
 @import url(../blocks/img-popup-container/img-popup-container.css);
 @import url(../blocks/image-figure/__image/image-figure__image.css);
 @import url(../blocks/image-figure/image-figure.css);
 @import url(../blocks/image-figure/__caption/image-figure__caption.css);
-@import url(../blocks/transition.css);
+@import url(../blocks/place-popup/place-popup.css);
 
