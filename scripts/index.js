@@ -1,13 +1,13 @@
 //Объявляем переменные 
-const popupProfileElement = document.querySelector('.profile__popup'); //попап редактирования профиля
-const popupProfileCloseIconElement = popupProfileElement.querySelector('.profile__close-icon'); //кнопка закрытия попапа редактирования профиля
+const popupProfileElement = document.querySelector('.profile-popup'); //попап редактирования профиля
+const popupProfileCloseIconElement = popupProfileElement.querySelector('.profile-popup-container__close-icon'); //кнопка закрытия попапа редактирования профиля
 const editButtonElement = document.querySelector('.profile__edit-button'); //кнопка "изменить" профиль
 const formProfileElement = document.querySelector('.form-popup_type_profile'); // форма редактирования профиля
-const popupAddButtonElement = document.querySelector('.add-button__popup'); //попап добавления карточки
+const popupAddButtonElement = document.querySelector('.add-button-popup'); //попап добавления карточки
 const addButtonElement = document.querySelector('.add-button');//кнопка "добавить"
-const popupAddButtonCloseIconElement = document.querySelector('.add-button__close-icon') //кнопка закрытия формы добавления карточки
+const popupAddButtonCloseIconElement = document.querySelector('.add-button-popup-container__close-icon') //кнопка закрытия формы добавления карточки
 const formAddButtonElement = document.querySelector('.form-popup_type_add');//форма добавления карточки
-const popupImageFew = document.querySelector('.place__popup');//попап просмотра изображения
+const popupImageFew = document.querySelector('.place-popup');//попап просмотра изображения
 const popupImageFewImgElement = document.querySelector('.image-figure__image'); // просматриваемое изображение
 const popupImageFewCaptionElement = document.querySelector('.image-figure__caption'); //подпись к изображению попапа
 const popupImageFewCloseIconElement = document.querySelector('.img-popup-container__close-icon'); //кнопка закрытия попапа просмотра изображения
