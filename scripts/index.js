@@ -89,7 +89,7 @@ function handleFormProfileSubmit (evt) {
 //обработчик отправки формы добавления новой карточки пользователем
 const handleFormAddCardByUser = function (evt) {
     evt.preventDefault(); // отмена стандартной отправки формы
-    placesElement.prepend(getNewCard(placeInput.value, imageLinkInput.value, placeInput.value)); //добавили карточку на страницу
+    placesElement.prepend(getNewCard(placeInput.value, imageLinkInput.value)); //добавили карточку на страницу
     closePopup(popupAddButtonElement);
     formAddButtonElement.reset();
 }
@@ -112,7 +112,7 @@ function getNewCard (title, image) {
 
 function listenLikedButton(item) { //обработчик отметки "понравилось"
     item.addEventListener('click', function(evt) {
-        let likeButtonElement = evt.target; // кнопка, которая вызвала событие
+        const likeButtonElement = evt.target; // кнопка, которая вызвала событие
         likeButtonElement.classList.toggle('place__like-button_active');
     })
 };
@@ -120,13 +120,13 @@ function listenLikedButton(item) { //обработчик отметки "пон
 
 function listenDeleteButton(item) { //обработчик кнопки "удалить"
     item.addEventListener('click', function(evt) {
-        let deletedCardElement = evt.target.parentElement; //карточка, на которой нажали кнопку "удалить"
+        const deletedCardElement = evt.target.closest('.place'); //карточка, на которой нажали кнопку "удалить"
         deletedCardElement.remove();
     })
 };
 
 initialCards.forEach(function (item) { //каждую карточку из массива добавили на страницу
-    placesElement.append(getNewCard(item.name, item.link, item.alt));
+    placesElement.append(getNewCard(item.name, item.link));
 });
 
 formProfileElement.addEventListener('submit', handleFormProfileSubmit); //назначаем обработчик событию отправки формы редактирования профиля
