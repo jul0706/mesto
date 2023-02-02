@@ -1,4 +1,5 @@
 //Объявляем переменные 
+const popupsArray = Array.from(document.querySelectorAll('.popup'));//массив всех попапов
 const popupProfileElement = document.querySelector('.profile-popup'); //попап редактирования профиля
 const popupProfileCloseIconElement = popupProfileElement.querySelector('.profile-popup-container__close-icon'); //кнопка закрытия попапа редактирования профиля
 const editButtonElement = document.querySelector('.profile__edit-button'); //кнопка "изменить" профиль
@@ -117,7 +118,6 @@ function listenLikedButton(item) { //обработчик отметки "пон
     })
 };
 
-
 function listenDeleteButton(item) { //обработчик кнопки "удалить"
     item.addEventListener('click', function(evt) {
         const deletedCardElement = evt.target.closest('.place'); //карточка, на которой нажали кнопку "удалить"
@@ -125,9 +125,30 @@ function listenDeleteButton(item) { //обработчик кнопки "уда�
     })
 };
 
+function clickOverlayClosePopup (popup) { // обработчик закрытия попапа при клике по оверлэю
+    popup.addEventListener('click', function (evt) {
+        if (evt.target === evt.currentTarget) {
+            closePopup(popup);
+        }
+    })
+}
+
+function pressEscapeClosePopup (popup) { //обработчик закрытия попапа при нажатии Escape
+    popup.addEventListener('keydown', function (evt) {
+        if (evt.key === 'Escape') {
+            closePopup(popup);
+        }
+    })
+}
+
 initialCards.forEach(function (item) { //каждую карточку из массива добавили на страницу
     placesElement.append(getNewCard(item.name, item.link));
 });
+
+popupsArray.forEach (function(popup) { //каждому попапу назначили слушатель закрытия при клике по оверлэй или esc
+    clickOverlayClosePopup(popup);
+    pressEscapeClosePopup(popup);
+})
 
 formProfileElement.addEventListener('submit', handleFormProfileSubmit); //назначаем обработчик событию отправки формы редактирования профиля
 
@@ -150,14 +171,3 @@ popupAddButtonCloseIconElement.addEventListener('click', function () {
 popupImageFewCloseIconElement.addEventListener('click', function () {
                                                             closePopup(popupImageFew)
                                                         }); //назначаем кнопке закрытия попапа с изображением обработчик
-
-
-/*nameInput.addEventListener('click', function() { // добавляем обработчик очистки поля формы при клике
-    nameInput.value = '';
-    }
-);
-
-jobInput.addEventListener('click', function() { // добавляем обработчик очистки поля формы при клике
-    jobInput.value = '';
-    }
-);*/
