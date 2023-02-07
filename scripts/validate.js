@@ -1,53 +1,48 @@
-const config = {
+const formValidationConfig = { //настройки валидации
     formSelector: '.form-popup',
     inputSelector: '.form-popup__input',
     submitButtonSelector: '.form-popup__button-save',
     inactiveButtonClass: 'form-popup__button-save',
     inputErrorClass: 'form-popup__input_type_error',
-    errorClass: 'form-popup__error_visible'
-  }
-
-
-const showInputError = (form, input, errorMessage) => { //функция показа ошибки поля ввода
-    input.classList.add('form-popup__input_type_error'); //добавлен стиль некорректному полю ввода
-    formError = form.querySelector(`.${input.id}-error`) // находим span ошибки
-    formError.textContent = errorMessage; // передаем сообщение об ошибке 
-    formError.classList.add('form-popup__error_visible'); // делаем ошибку видимой
+    errorClass: 'form-popup__error_visible',
 }
 
-const hideInputError = (form, input) => { //функция скрытия ошибки поля ввода
-    input.classList.remove('form-popup__input_type_error');
+const showInputError = (config, form, input, errorMessage) => { //функция показа ошибки поля ввода
+    input.classList.add(config.inputErrorClass); //добавлен стиль некорректному полю ввода
+    formError = form.querySelector(`.${input.id}-error`) // находим span ошибки
+    formError.textContent = errorMessage; // передаем сообщение об ошибке 
+    formError.classList.add(config.errorClass); // делаем ошибку видимой
+}
+
+const hideInputError = (config, form, input) => { //функция скрытия ошибки поля ввода
+    input.classList.remove(config.inputErrorClass);
     formError = form.querySelector(`.${input.id}-error`) 
-    formError.classList.remove('form-popup__error_visible');
+    formError.classList.remove(config.errorClass);
     formError.textContent ='';
 }
 
-const isValid = (form, input) => { // функция проверки валидности формы
+const isValid = (config, form, input) => { // функция проверки валидности формы
     if (input.validity.valid) {
-        hideInputError(form, input) // если поле корректно, удаляем стиль ошибки и текст
+        hideInputError(config, form, input) // если поле корректно, удаляем стиль ошибки и текст
     } else {
-        showInputError(form, input, input.validationMessage) // меняем стиль поля ввода и показываем сообщение об ошибке, если поле некорректно
+        showInputError(config, form, input, input.validationMessage) // меняем стиль поля ввода и показываем сообщение об ошибке, если поле некорректно
     }
-};
-const setEventListeners = (form) => { // функция добавления обработчика валидности каждому инпуту формы
-    const imputsArray = Array.from(form.querySelectorAll('.form-popup__input'));
+}
+
+const setInputListener = (form, config) => { // функция добавления обработчика валидности каждому инпуту формы
+    const imputsArray = Array.from(form.querySelectorAll(config.inputSelector));
     imputsArray.forEach((input)=> {
         input.addEventListener('input', () => {
-            isValid(form, input)
+            isValid(config, form, input)
         })
     })
 }
 
-const enableValidation = () => {
-    const formsList = Array.from(document.forms);
-    formsList.forEach((form) => {
-        form.addEventListener('input', () => {
-            setEventListeners(form);
-            isValid(document.querySelector('.form-popup'), document.querySelector('.form-popup__input'));
-        })
-    })
-    
+const enableValidation = (config) => { //функция запуска валидации
+    const formsArray = Array.from(document.querySelectorAll(config.formSelector));
+    formsArray.forEach((form) => { // назначили обработчик всем формам
+        setInputListener(form, config);
+    });      
 }
 
-
-enableValidation();
+enableValidation(formValidationConfig);
