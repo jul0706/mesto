@@ -60,12 +60,10 @@ const openPopup = function (element) {
 const closePopup = function (element) {
     element.classList.remove('popup_is-opened')
 }
-nameInput.value = profileTitleElement.textContent;
-    jobInput.value = profileSubtitleElement.textContent;
+
 //Функция открытия формы редактирования профиля
 const openPopupEditProfile = function () {
     openPopup(popupProfileElement);
-    
 }
 
 //функция открытия попапа с изображением
@@ -79,7 +77,7 @@ function openPopupImageFew (item) {
     })
 }
 
-// Обработчик «отправки» формы редактирования профиля
+// Обработчик отправки формы редактирования профиля
 function handleFormProfileSubmit (evt) {
     evt.preventDefault(); // отмена стандартную отправку формы.
     profileTitleElement.textContent = nameInput.value;  // Вставляем новые значения
@@ -95,7 +93,7 @@ const handleFormAddCardByUser = function (evt) {
     formAddButtonElement.reset();
 }
 
-function getNewCard (title, image) {
+const makeTemplateElement = (title, image) => { //функция создания шаблона карточки
     const placeTemplate = placesElement.querySelector('#place__template').content; //получили доступ к содержимому template
     const placeElement = placeTemplate.querySelector('.place').cloneNode(true); // копировали содержимое template (article)
     const placeImageElement = placeElement.querySelector('.place__image'); //в переменную сохранили элемент изображения карточки
@@ -103,12 +101,17 @@ function getNewCard (title, image) {
     placeTitleElement.textContent = title; //добавляем названия
     placeImageElement.src = image; //добавляем картинку
     placeImageElement.alt = title; //добавляем подпись
-    const placeLikeButton = placeElement.querySelector('.place__like-button');
-    listenLikedButton(placeLikeButton); //назначили обработчик "понравилось"
-    const placeDeleteButton = placeElement.querySelector('.place__delete-icon');
-    listenDeleteButton(placeDeleteButton); //назначили обработчик "удалить"
-    openPopupImageFew(placeImageElement);//назначили обработчик открытия попапа с изображением
     return placeElement;
+}
+
+function getNewCard (title, image) { // функция добавления новой карточки на страницу
+    const newPlaceElement = makeTemplateElement(title, image); // создали шаблон карточки
+    const placeLikeButton = newPlaceElement.querySelector('.place__like-button');
+    listenLikedButton(placeLikeButton); //назначили обработчик "понравилось"
+    const placeDeleteButton = newPlaceElement.querySelector('.place__delete-icon');
+    listenDeleteButton(placeDeleteButton); //назначили обработчик "удалить"
+    openPopupImageFew(newPlaceElement.querySelector('.place__image'));//назначили обработчик открытия попапа с изображением
+    return newPlaceElement;
 };
 
 function listenLikedButton(item) { //обработчик отметки "понравилось"
@@ -140,6 +143,9 @@ function pressEscapeClosePopup (popup) { //обработчик закрытия
         }
     })
 }
+
+nameInput.value = profileTitleElement.textContent; //добавили содержимое заголовков профайла в форму профайла
+jobInput.value = profileSubtitleElement.textContent;
 
 initialCards.forEach(function (item) { //каждую карточку из массива добавили на страницу
     placesElement.append(getNewCard(item.name, item.link));
