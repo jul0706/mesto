@@ -60,12 +60,12 @@ const openPopup = function (element) {
 const closePopup = function (element) {
     element.classList.remove('popup_is-opened')
 }
-
+nameInput.value = profileTitleElement.textContent;
+    jobInput.value = profileSubtitleElement.textContent;
 //Функция открытия формы редактирования профиля
 const openPopupEditProfile = function () {
     openPopup(popupProfileElement);
-    nameInput.value = profileTitleElement.textContent;
-    jobInput.value = profileSubtitleElement.textContent;
+    
 }
 
 //функция открытия попапа с изображением

@@ -2,7 +2,7 @@ const formValidationConfig = { //настройки валидации
     formSelector: '.form-popup',
     inputSelector: '.form-popup__input',
     submitButtonSelector: '.form-popup__button-save',
-    inactiveButtonClass: 'form-popup__button-save',
+    inactiveButtonClass: 'form-popup__button-save_disabled',
     inputErrorClass: 'form-popup__input_type_error',
     errorClass: 'form-popup__error_visible',
 }
@@ -29,11 +29,27 @@ const isValid = (config, form, input) => { // функция проверки в
     }
 }
 
+const toggleButtonState = (config, formElement) => {
+    const buttonSubmit = formElement.querySelector(config.submitButtonSelector); //нашли кнопку
+    const isFormValid = formElement.checkValidity(); //проверка валидности формы
+    if (!isFormValid) { // если форма не валидна
+        buttonSubmit.disabled = true; // добавили кнопке атрибут disable
+        buttonSubmit.classList.add(config.inactiveButtonClass); // добавили стиль
+    } else {
+        buttonSubmit.disabled = false; // убрали атрибут disable
+        buttonSubmit.classList.remove(config.inactiveButtonClass); // убрали стиль
+    }
+}
+
 const setInputListener = (form, config) => { // функция добавления обработчика валидности каждому инпуту формы
+    
+        toggleButtonState(config, form);
+    
     const imputsArray = Array.from(form.querySelectorAll(config.inputSelector));
     imputsArray.forEach((input)=> {
         input.addEventListener('input', () => {
-            isValid(config, form, input)
+            isValid(config, form, input);
+            toggleButtonState(config, form);
         })
     })
 }
