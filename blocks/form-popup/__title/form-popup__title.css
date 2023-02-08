@@ -3,7 +3,7 @@
     line-height: 22px;
     font-weight: 900;
     color: black;
-    margin: 0 22px 75px 22px;
+    margin: 0 22px 70px 22px;
     padding-top: 25px;
 }
 
@@ -11,7 +11,7 @@
     .form-popup__title {
         font-size: 24px;
         line-height: 29px;
-        margin: 0 64px 54px 36px;
+        margin: 0 64px 44px 36px;
         padding-top: 34px;
     }
 }

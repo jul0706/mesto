@@ -24,58 +24,34 @@ const profileSubtitleElement = document.querySelector('.profile__subtitle');
 //элемент places
 const placesElement = document.querySelector('.places');
 
-const initialCards = [ 
-    {
-        name: 'Абхазия',
-        link: './images/abhazia.jpg'
-    },
-    {
-        name: 'гора Аю-Даг',
-        link: './images/ayu-dag.jpg',
-    },
-    {
-        name: 'озеро Банное (Якты-Куль)',
-        link: './images/bannoe.jpg',
-    },
-    {
-        name: 'республика Башкортостан',
-        link: './images/bashkortostan.jpg'
-    },
-    {
-        name: 'Гурзуф',
-        link: './images/gurzuf.jpg'
-    },
-    {
-        name: 'Магнитогорск',
-        link: './images/magnitogorsk.jpg'
-    },
-];
-
 const checkPressEsc = (evt) => { // обработчик проверка нажатой клавиши и удаление обработчика Escape
     if (evt.key === 'Escape') { //если нашали Esc
         closePopup(document.querySelector('.popup_is-opened')); //закрыть открытый попап
-        window.removeEventListener('keydown', checkPressEsc) //удалить обработчик
     }
 }
 
-function closePopupPressEsc (popup) { //слушатель закрытия попапа при нажатии Escape
+function closePopupPressEsc () { //слушатель закрытия попапа при нажатии Escape
     window.addEventListener('keydown', checkPressEsc)
 }
 
 //функция открытия попапов
 const openPopup = function (element) {
     element.classList.add('popup_is-opened'); //добавили класс
-    closePopupPressEsc(element); //добавили слушатель закрытия по Esc
+    closePopupPressEsc(); //добавили слушатель закрытия по Esc
 }
 
 //функция закрытия попапов
 const closePopup = function (element) {
-    element.classList.remove('popup_is-opened')
+    window.removeEventListener('keydown', checkPressEsc) //удалить слушатель закрытия по Esc
+    element.classList.remove('popup_is-opened'); //удалили класс
 }
 
 //Функция открытия формы редактирования профиля
 const openPopupEditProfile = function () {
     openPopup(popupProfileElement);
+    nameInput.value = profileTitleElement.textContent; //передали содержимое заголовков страницы в форму профайла
+    jobInput.value = profileSubtitleElement.textContent;
+    enableValidation(formValidationConfig); //проверили валидность переданных данных
 }
 
 //функция открытия попапа с изображением
@@ -147,9 +123,6 @@ function closePopupClickOverlay (popup) { // обработчик закрыти
         }
     })
 }
-
-nameInput.value = profileTitleElement.textContent; //добавили содержимое заголовков профайла в форму профайла
-jobInput.value = profileSubtitleElement.textContent;
 
 initialCards.forEach(function (item) { //каждую карточку из массива добавили на страницу
     placesElement.append(getNewCard(item.name, item.link));
