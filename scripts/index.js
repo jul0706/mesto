@@ -51,9 +51,21 @@ const initialCards = [
     },
 ];
 
+const checkPressEsc = (evt) => { // обработчик проверка нажатой клавиши и удаление обработчика Escape
+    if (evt.key === 'Escape') { //если нашали Esc
+        closePopup(document.querySelector('.popup_is-opened')); //закрыть открытый попап
+        window.removeEventListener('keydown', checkPressEsc) //удалить обработчик
+    }
+}
+
+function closePopupPressEsc (popup) { //слушатель закрытия попапа при нажатии Escape
+    window.addEventListener('keydown', checkPressEsc)
+}
+
 //функция открытия попапов
 const openPopup = function (element) {
-    element.classList.add('popup_is-opened');
+    element.classList.add('popup_is-opened'); //добавили класс
+    closePopupPressEsc(element); //добавили слушатель закрытия по Esc
 }
 
 //функция закрытия попапов
@@ -128,17 +140,9 @@ function listenDeleteButton(item) { //обработчик кнопки "уда�
     })
 };
 
-function clickOverlayClosePopup (popup) { // обработчик закрытия попапа при клике по оверлэю
+function closePopupClickOverlay (popup) { // обработчик закрытия попапа при клике по оверлэю
     popup.addEventListener('click', function (evt) {
         if (evt.target === evt.currentTarget) {
-            closePopup(popup);
-        }
-    })
-}
-
-function pressEscapeClosePopup (popup) { //обработчик закрытия попапа при нажатии Escape
-    popup.addEventListener('keydown', function (evt) {
-        if (evt.key === 'Escape') {
             closePopup(popup);
         }
     })
@@ -151,9 +155,8 @@ initialCards.forEach(function (item) { //каждую карточку из ма
     placesElement.append(getNewCard(item.name, item.link));
 });
 
-popupsArray.forEach (function(popup) { //каждому попапу назначили слушатель закрытия при клике по оверлэй или esc
-    clickOverlayClosePopup(popup);
-    pressEscapeClosePopup(popup);
+popupsArray.forEach (function(popup) { //каждому попапу назначили слушатель закрытия при клике по оверлэй
+    closePopupClickOverlay(popup);
 })
 
 formProfileElement.addEventListener('submit', handleFormProfileSubmit); //назначаем обработчик событию отправки формы редактирования профиля
