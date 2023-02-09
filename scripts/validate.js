@@ -43,7 +43,7 @@ const toggleButtonState = (config, formElement) => {
 
 const setInputListener = (form, config) => { // функция добавления обработчика валидности каждому инпуту формы
     
-        toggleButtonState(config, form);
+    toggleButtonState(config, form);
     
     const imputsArray = Array.from(form.querySelectorAll(config.inputSelector));
     imputsArray.forEach((input)=> {

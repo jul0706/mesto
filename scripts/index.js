@@ -51,7 +51,6 @@ const openPopupEditProfile = function () {
     openPopup(popupProfileElement);
     nameInput.value = profileTitleElement.textContent; //передали содержимое заголовков страницы в форму профайла
     jobInput.value = profileSubtitleElement.textContent;
-    enableValidation(formValidationConfig); //проверили валидность переданных данных
 }
 
 //функция открытия попапа с изображением
@@ -79,6 +78,7 @@ const handleFormAddCardByUser = function (evt) {
     placesElement.prepend(getNewCard(placeInput.value, imageLinkInput.value)); //добавили карточку на страницу
     closePopup(popupAddButtonElement);
     formAddButtonElement.reset();
+    toggleButtonState(formValidationConfig, formAddButtonElement);
 }
 
 const makeTemplateElement = (title, image) => { //функция создания шаблона карточки
