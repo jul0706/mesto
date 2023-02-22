@@ -1,3 +1,5 @@
+import {Card} from './Card.js';
+import {initialCards} from './initialCards.js';
 //Объявляем переменные 
 const popupsArray = Array.from(document.querySelectorAll('.popup'));//массив всех попапов
 const popupProfileElement = document.querySelector('.profile-popup'); //попап редактирования профиля
@@ -9,20 +11,15 @@ const addButtonElement = document.querySelector('.add-button');//кнопка "�
 const popupAddButtonCloseIconElement = document.querySelector('.add-button-popup-container__close-icon') //кнопка закрытия формы добавления карточки
 const formAddButtonElement = document.querySelector('.form-popup_type_add');//форма добавления карточки
 const popupImageFew = document.querySelector('.place-popup');//попап просмотра изображения
-const popupImageFewImgElement = document.querySelector('.image-figure__image'); // просматриваемое изображение
-const popupImageFewCaptionElement = document.querySelector('.image-figure__caption'); //подпись к изображению попапа
 const popupImageFewCloseIconElement = document.querySelector('.img-popup-container__close-icon'); //кнопка закрытия попапа просмотра изображения
 //поля формы редактирования профиля
 const nameInput = formProfileElement.querySelector('.form-popup__input_type_name');
 const jobInput = formProfileElement.querySelector('.form-popup__input_type_job');
-//поля формы добавления карточки
-const placeInput = formAddButtonElement.querySelector('.form-popup__input_type_place');
-const imageLinkInput = formAddButtonElement.querySelector('.form-popup__input_type_link');
 // элементы страницы, куда вставим значения полей формы
 const profileTitleElement = document.querySelector('.profile__title');   
 const profileSubtitleElement = document.querySelector('.profile__subtitle');
 //элемент places
-const placesElement = document.querySelector('.places');
+export const placesElement = document.querySelector('.places');
 
 const checkPressEsc = (evt) => { // обработчик проверка нажатой клавиши и удаление обработчика Escape
     if (evt.key === 'Escape') { //если нашали Esc
@@ -53,11 +50,13 @@ const openPopupEditProfile = function () {
     jobInput.value = profileSubtitleElement.textContent;
 }
 
-//функция открытия попапа с изображением
-function openPopupImageFew (item) { 
+//слушатель открытия попапа с изображением
+export function openPopupImageFew (item) { 
     item.addEventListener ('click', function(evt) {
         const clickedImageElement = evt.target //изображение, которое вызвало событие
         openPopup(popupImageFew); //открыть попап с изображением
+        const popupImageFewImgElement = document.querySelector('.image-figure__image'); // просматриваемое изображение
+        const popupImageFewCaptionElement = document.querySelector('.image-figure__caption'); //подпись к изображению попапа
         popupImageFewImgElement.src = clickedImageElement.src;//присвоить изображению попапа ссылку изображения карточки
         popupImageFewImgElement.alt = clickedImageElement.alt; //присвоить alt изображения
         popupImageFewCaptionElement.textContent = clickedImageElement.alt;//присвоить подпись изображения
@@ -75,41 +74,23 @@ function handleFormProfileSubmit (evt) {
 //обработчик отправки формы добавления новой карточки пользователем
 const handleFormAddCardByUser = function (evt) {
     evt.preventDefault(); // отмена стандартной отправки формы
+    //поля формы добавления карточки
+    const placeInput = formAddButtonElement.querySelector('.form-popup__input_type_place');
+    const imageLinkInput = formAddButtonElement.querySelector('.form-popup__input_type_link');
     placesElement.prepend(getNewCard(placeInput.value, imageLinkInput.value)); //добавили карточку на страницу
     closePopup(popupAddButtonElement);
     formAddButtonElement.reset();
     toggleButtonState(formValidationConfig, formAddButtonElement);
 }
 
-const makeTemplateElement = (title, image) => { //функция создания шаблона карточки
-    const placeTemplate = placesElement.querySelector('#place__template').content; //получили доступ к содержимому template
-    const placeElement = placeTemplate.querySelector('.place').cloneNode(true); // копировали содержимое template (article)
-    const placeImageElement = placeElement.querySelector('.place__image'); //в переменную сохранили элемент изображения карточки
-    const placeTitleElement = placeElement.querySelector('.place__title'); //в переменную сохранили элемент названия карточки
-    placeTitleElement.textContent = title; //добавляем названия
-    placeImageElement.src = image; //добавляем картинку
-    placeImageElement.alt = title; //добавляем подпись
-    return placeElement;
-}
-
-function getNewCard (title, image) { // функция добавления новой карточки на страницу
-    const newPlaceElement = makeTemplateElement(title, image); // создали шаблон карточки
-    const placeLikeButton = newPlaceElement.querySelector('.place__like-button');
-    listenLikedButton(placeLikeButton); //назначили обработчик "понравилось"
-    const placeDeleteButton = newPlaceElement.querySelector('.place__delete-icon');
-    listenDeleteButton(placeDeleteButton); //назначили обработчик "удалить"
-    openPopupImageFew(newPlaceElement.querySelector('.place__image'));//назначили обработчик открытия попапа с изображением
-    return newPlaceElement;
-};
-
-function listenLikedButton(item) { //обработчик отметки "понравилось"
+export function listenLikedButton(item) { //обработчик отметки "понравилось"
     item.addEventListener('click', function(evt) {
         const likeButtonElement = evt.target; // кнопка, которая вызвала событие
         likeButtonElement.classList.toggle('place__like-button_active');
     })
 };
 
-function listenDeleteButton(item) { //обработчик кнопки "удалить"
+export function listenDeleteButton(item) { //обработчик кнопки "удалить"
     item.addEventListener('click', function(evt) {
         const deletedCardElement = evt.target.closest('.place'); //карточка, на которой нажали кнопку "удалить"
         deletedCardElement.remove();
@@ -125,7 +106,9 @@ function closePopupClickOverlay (popup) { // обработчик закрыти
 }
 
 initialCards.forEach(function (item) { //каждую карточку из массива добавили на страницу
-    placesElement.append(getNewCard(item.name, item.link));
+    let newCard = new Card (item.name, item.link, '#place__template');
+    let cardElement = newCard.getNewCard();
+    placesElement.append(cardElement);
 });
 
 popupsArray.forEach (function(popup) { //каждому попапу назначили слушатель закрытия при клике по оверлэй
