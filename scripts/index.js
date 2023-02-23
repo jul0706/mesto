@@ -32,7 +32,7 @@ function closePopupPressEsc () { //слушатель закрытия попа�
 }
 
 //функция открытия попапов
-const openPopup = function (element) {
+export const openPopup = function (element) {
     element.classList.add('popup_is-opened'); //добавили класс
     closePopupPressEsc(); //добавили слушатель закрытия по Esc
 }
@@ -50,19 +50,6 @@ const openPopupEditProfile = function () {
     jobInput.value = profileSubtitleElement.textContent;
 }
 
-//слушатель открытия попапа с изображением
-export function openPopupImageFew (item) { 
-    item.addEventListener ('click', function(evt) {
-        const clickedImageElement = evt.target //изображение, которое вызвало событие
-        openPopup(popupImageFew); //открыть попап с изображением
-        const popupImageFewImgElement = document.querySelector('.image-figure__image'); // просматриваемое изображение
-        const popupImageFewCaptionElement = document.querySelector('.image-figure__caption'); //подпись к изображению попапа
-        popupImageFewImgElement.src = clickedImageElement.src;//присвоить изображению попапа ссылку изображения карточки
-        popupImageFewImgElement.alt = clickedImageElement.alt; //присвоить alt изображения
-        popupImageFewCaptionElement.textContent = clickedImageElement.alt;//присвоить подпись изображения
-    })
-}
-
 // Обработчик отправки формы редактирования профиля
 function handleFormProfileSubmit (evt) {
     evt.preventDefault(); // отмена стандартную отправку формы.
@@ -74,28 +61,14 @@ function handleFormProfileSubmit (evt) {
 //обработчик отправки формы добавления новой карточки пользователем
 const handleFormAddCardByUser = function (evt) {
     evt.preventDefault(); // отмена стандартной отправки формы
-    //поля формы добавления карточки
-    const placeInput = formAddButtonElement.querySelector('.form-popup__input_type_place');
-    const imageLinkInput = formAddButtonElement.querySelector('.form-popup__input_type_link');
-    placesElement.prepend(getNewCard(placeInput.value, imageLinkInput.value)); //добавили карточку на страницу
+    const userCard = {};
+    userCard.name = formAddButtonElement.querySelector('.form-popup__input_type_place').value;
+    userCard.link = formAddButtonElement.querySelector('.form-popup__input_type_link').value;
+    placesElement.prepend(generateCard(userCard, '#place__template')); //добавили карточку на страницу
     closePopup(popupAddButtonElement);
     formAddButtonElement.reset();
     toggleButtonState(formValidationConfig, formAddButtonElement);
 }
-
-export function listenLikedButton(item) { //обработчик отметки "понравилось"
-    item.addEventListener('click', function(evt) {
-        const likeButtonElement = evt.target; // кнопка, которая вызвала событие
-        likeButtonElement.classList.toggle('place__like-button_active');
-    })
-};
-
-export function listenDeleteButton(item) { //обработчик кнопки "удалить"
-    item.addEventListener('click', function(evt) {
-        const deletedCardElement = evt.target.closest('.place'); //карточка, на которой нажали кнопку "удалить"
-        deletedCardElement.remove();
-    })
-};
 
 function closePopupClickOverlay (popup) { // обработчик закрытия попапа при клике по оверлэю
     popup.addEventListener('click', function (evt) {
@@ -104,11 +77,13 @@ function closePopupClickOverlay (popup) { // обработчик закрыти
         }
     })
 }
-
-initialCards.forEach(function (item) { //каждую карточку из массива добавили на страницу
-    let newCard = new Card (item.name, item.link, '#place__template');
+const generateCard = (item, selector) => { //функция сосздания карточки с использованием класса Card
+    let newCard = new Card (item, selector);
     let cardElement = newCard.getNewCard();
-    placesElement.append(cardElement);
+    return cardElement;
+}
+initialCards.forEach(function (item) { //каждую карточку из массива добавили на страницу
+    placesElement.append(generateCard(item, '#place__template'));
 });
 
 popupsArray.forEach (function(popup) { //каждому попапу назначили слушатель закрытия при клике по оверлэй
