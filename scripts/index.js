@@ -1,5 +1,6 @@
 import {Card} from './Card.js';
 import {initialCards} from './initialCards.js';
+import {formValidationConfig, FormValidator} from './FormValidator.js'
 //Объявляем переменные 
 const popupsArray = Array.from(document.querySelectorAll('.popup'));//массив всех попапов
 const popupProfileElement = document.querySelector('.profile-popup'); //попап редактирования профиля
@@ -58,6 +59,12 @@ function handleFormProfileSubmit (evt) {
     closePopup(popupProfileElement); //закрываем форму
 };
 
+const generateCard = (item, selector) => { //функция сосздания карточки с использованием класса Card
+    let newCard = new Card (item, selector);
+    let cardElement = newCard.getNewCard();
+    return cardElement;
+}
+
 //обработчик отправки формы добавления новой карточки пользователем
 const handleFormAddCardByUser = function (evt) {
     evt.preventDefault(); // отмена стандартной отправки формы
@@ -67,7 +74,6 @@ const handleFormAddCardByUser = function (evt) {
     placesElement.prepend(generateCard(userCard, '#place__template')); //добавили карточку на страницу
     closePopup(popupAddButtonElement);
     formAddButtonElement.reset();
-    toggleButtonState(formValidationConfig, formAddButtonElement);
 }
 
 function closePopupClickOverlay (popup) { // обработчик закрытия попапа при клике по оверлэю
@@ -77,14 +83,15 @@ function closePopupClickOverlay (popup) { // обработчик закрыти
         }
     })
 }
-const generateCard = (item, selector) => { //функция сосздания карточки с использованием класса Card
-    let newCard = new Card (item, selector);
-    let cardElement = newCard.getNewCard();
-    return cardElement;
-}
+
 initialCards.forEach(function (item) { //каждую карточку из массива добавили на страницу
     placesElement.append(generateCard(item, '#place__template'));
 });
+
+Array.from(document.querySelectorAll('.form-popup')).forEach((form => {
+    const formValidator = new FormValidator(formValidationConfig, form);
+    formValidator.enableValidation(form);
+}))
 
 popupsArray.forEach (function(popup) { //каждому попапу назначили слушатель закрытия при клике по оверлэй
     closePopupClickOverlay(popup);
