@@ -1,6 +1,6 @@
 import {Card} from './Card.js';
-import {initialCards} from './initialCards.js';
-import {formValidationConfig, FormValidator} from './FormValidator.js'
+import {initialCards, formValidationConfig,} from './consts.js';
+import {FormValidator} from './FormValidator.js'
 //Объявляем переменные 
 const popupsArray = Array.from(document.querySelectorAll('.popup'));//массив всех попапов
 const popupProfileElement = document.querySelector('.profile-popup'); //попап редактирования профиля
@@ -60,17 +60,18 @@ function handleFormProfileSubmit (evt) {
 };
 
 const generateCard = (item, selector) => { //функция сосздания карточки с использованием класса Card
-    let newCard = new Card (item, selector);
-    let cardElement = newCard.getNewCard();
+    const newCard = new Card (item, selector);
+    const cardElement = newCard.getNewCard();
     return cardElement;
 }
 
 //обработчик отправки формы добавления новой карточки пользователем
 const handleFormAddCardByUser = function (evt) {
     evt.preventDefault(); // отмена стандартной отправки формы
-    const userCard = {};
-    userCard.name = formAddButtonElement.querySelector('.form-popup__input_type_place').value;
-    userCard.link = formAddButtonElement.querySelector('.form-popup__input_type_link').value;
+    const userCard = {
+    name: formAddButtonElement.querySelector('.form-popup__input_type_place').value,
+    link: formAddButtonElement.querySelector('.form-popup__input_type_link').value,
+    };
     placesElement.prepend(generateCard(userCard, '#place__template')); //добавили карточку на страницу
     closePopup(popupAddButtonElement);
     formAddButtonElement.reset();

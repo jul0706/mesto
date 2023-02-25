@@ -5,6 +5,7 @@ export class Card {
         this._name = item.name;
         this._url = item.link;
         this._template = templateSelector;
+        
     }
 
     _makeTemplateElement () { // метод создания шаблона  HTML разметки карточки
@@ -42,7 +43,7 @@ export class Card {
 
     _openPopupImageFew (image) {  //слушатель открытия попапа с изображением
         image.addEventListener ('click', function(evt) {
-            const clickedImageElement = evt.target //изображение, которое вызвало событие
+            const clickedImageElement = evt.target; //изображение, которое вызвало событие
             openPopup(document.querySelector('.place-popup')); //открыть попап с изображением
             const popupImageFewImgElement = document.querySelector('.image-figure__image'); // просматриваемое изображение
             const popupImageFewCaptionElement = document.querySelector('.image-figure__caption'); //подпись к изображению попапа

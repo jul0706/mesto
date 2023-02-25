@@ -11,5 +11,5 @@
 }
 
 .place__like-button:hover {
-    background-image: url(../../../images/like-hover.svg);
+   opacity: 0.6;
 }

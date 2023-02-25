@@ -24,3 +24,12 @@ export const initialCards = [
         link: './images/magnitogorsk.jpg'
     },
 ];
+
+export const formValidationConfig = { //объект настроек валидации
+    formSelector: '.form-popup',
+    inputSelector: '.form-popup__input',
+    submitButtonSelector: '.form-popup__button-save',
+    inactiveButtonClass: 'form-popup__button-save_disabled',
+    inputErrorClass: 'form-popup__input_type_error',
+    errorClass: 'form-popup__error_visible',
+};
