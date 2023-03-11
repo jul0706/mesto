@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./pages/index.css">
+    
     <title>Mesto</title>
 </head>
 <body class="body">
     <div class="page">
         <!--Хедер-->
         <header class="header">
-           <img src="./images/logo.svg" alt="логотип сайта" class="header__logo">
+           <img src="<%=require('./images/logo.svg')%>" alt="логотип сайта" class="header__logo">
         </header>
         
         <main class="main"> <!--Основное содержание страницы-->
             <!--Блок profile-->
             <section class="profile">
-                <img src="./images/kusto.jpg" alt="портрет Жака Ив Кусто" class="profile__avatar">  <!--Аватар-->
+                <img src="<%=require('./images/kusto.jpg')%>" alt="портрет Жака Ив Кусто" class="profile__avatar">  <!--Аватар-->
                 <!--Контейнер для заголовка, подзаголовка  на 1024+-->
                 <div class="profile__title-and-subtitle-form"> 
                     <div class="profile__title-form"> <!--Контейнер для заголовка с кнопкой-->

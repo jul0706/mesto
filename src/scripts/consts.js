@@ -1,27 +1,34 @@
+import abhaziaImage from '../images/abhazia.jpg';
+import ayuDagImage from '../images/ayu-dag.jpg';
+import bannoeImage from '../images/bannoe.jpg';
+import bashkortostanImage from '../images/bashkortostan.jpg';
+import gurzufImage from '../images/gurzuf.jpg';
+import magnitogorskImage from '../images/magnitogorsk.jpg';
+
 export const initialCards = [ 
     {
         name: 'Абхазия',
-        link: './images/abhazia.jpg'
+        link: abhaziaImage
     },
     {
         name: 'гора Аю-Даг',
-        link: './images/ayu-dag.jpg',
+        link: ayuDagImage,
     },
     {
         name: 'озеро Банное (Якты-Куль)',
-        link: './images/bannoe.jpg',
+        link: bannoeImage,
     },
     {
         name: 'республика Башкортостан',
-        link: './images/bashkortostan.jpg'
+        link: bashkortostanImage
     },
     {
         name: 'Гурзуф',
-        link: './images/gurzuf.jpg'
+        link: gurzufImage
     },
     {
         name: 'Магнитогорск',
-        link: './images/magnitogorsk.jpg'
+        link: magnitogorskImage
     },
 ];
 

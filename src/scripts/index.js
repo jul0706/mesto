@@ -1,6 +1,7 @@
 import {Card} from './Card.js';
 import {initialCards, formValidationConfig,} from './consts.js';
-import {FormValidator} from './FormValidator.js'
+import {FormValidator} from './FormValidator.js';
+import '../pages/index.css';
 //Объявляем переменные 
 const popupsArray = Array.from(document.querySelectorAll('.popup'));//массив всех попапов
 const popupProfileElement = document.querySelector('.profile-popup'); //попап редактирования профиля
