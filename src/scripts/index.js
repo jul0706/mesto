@@ -1,6 +1,7 @@
 import {Card} from './Card.js';
 import {initialCards, formValidationConfig,} from './consts.js';
 import {FormValidator} from './FormValidator.js';
+import {Section} from './Section.js';
 import '../pages/index.css';
 //Объявляем переменные 
 const popupsArray = Array.from(document.querySelectorAll('.popup'));//массив всех попапов
@@ -45,6 +46,14 @@ const closePopup = function (element) {
     element.classList.remove('popup_is-opened'); //удалили класс
 }
 
+function closePopupClickOverlay (popup) { // обработчик закрытия попапа при клике по оверлэю
+    popup.addEventListener('click', function (evt) {
+        if (evt.target === evt.currentTarget) {
+            closePopup(popup);
+        }
+    })
+}
+
 //Функция открытия формы редактирования профиля
 const openPopupEditProfile = function () {
     openPopup(popupProfileElement);
@@ -54,17 +63,11 @@ const openPopupEditProfile = function () {
 
 // Обработчик отправки формы редактирования профиля
 function handleFormProfileSubmit (evt) {
-    evt.preventDefault(); // отмена стандартную отправку формы.
+    evt.preventDefault(); // отмена стандартной отправки формы
     profileTitleElement.textContent = nameInput.value;  // Вставляем новые значения
     profileSubtitleElement.textContent = jobInput.value;
     closePopup(popupProfileElement); //закрываем форму
 };
-
-const generateCard = (item, selector) => { //функция сосздания карточки с использованием класса Card
-    const newCard = new Card (item, selector);
-    const cardElement = newCard.getNewCard();
-    return cardElement;
-}
 
 //обработчик отправки формы добавления новой карточки пользователем
 const handleFormAddCardByUser = function (evt) {
@@ -78,17 +81,18 @@ const handleFormAddCardByUser = function (evt) {
     formAddButtonElement.reset();
 }
 
-function closePopupClickOverlay (popup) { // обработчик закрытия попапа при клике по оверлэю
-    popup.addEventListener('click', function (evt) {
-        if (evt.target === evt.currentTarget) {
-            closePopup(popup);
-        }
-    })
-}
+const defaultCards = new Section ( {
+    array: initialCards,
+    renderer: (item) => {
+        const newCard = new Card (item, '#place__template');
+        const cardElement = newCard.getNewCard();
+        defaultCards.addItem(cardElement);
+    },
+    }, 
+    '.places'
+);
 
-initialCards.forEach(function (item) { //каждую карточку из массива добавили на страницу
-    placesElement.append(generateCard(item, '#place__template'));
-});
+defaultCards.renderItems();
 
 Array.from(document.querySelectorAll('.form-popup')).forEach((form => {
     const formValidator = new FormValidator(formValidationConfig, form);

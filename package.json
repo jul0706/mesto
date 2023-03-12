@@ -4,7 +4,7 @@
   "description": "В работе использованы технологии HTML и CSS:\r  * flexbox\r  * greed layout\r  * работа с изображениями\r  * адаптивная верстка\r  * разметка и стилизация форм\r  * анимация",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "webpack  --mode production",
     "dev": "webpack serve"
   },
   "author": "Julia Ivanovskaya",
