@@ -1,11 +1,11 @@
 import {placesElement, openPopup} from './index.js'
+import { PopupWithImage } from './PopupWithImage.js';
 
 export class Card {
     constructor(item, templateSelector) {
         this._name = item.name;
         this._url = item.link;
         this._template = templateSelector;
-        
     }
 
     _makeTemplateElement () { // метод создания шаблона  HTML разметки карточки
@@ -41,25 +41,19 @@ export class Card {
         })
     };
 
-    _openPopupImageFew (image) {  //слушатель открытия попапа с изображением
-        image.addEventListener ('click', function(evt) {
-            const clickedImageElement = evt.target; //изображение, которое вызвало событие
-            openPopup(document.querySelector('.place-popup')); //открыть попап с изображением
-            const popupImageFewImgElement = document.querySelector('.image-figure__image'); // просматриваемое изображение
-            const popupImageFewCaptionElement = document.querySelector('.image-figure__caption'); //подпись к изображению попапа
-            popupImageFewImgElement.src = clickedImageElement.src;//присвоить изображению попапа ссылку изображения карточки
-            popupImageFewImgElement.alt = clickedImageElement.alt; //присвоить alt изображения
-            popupImageFewCaptionElement.textContent = clickedImageElement.alt;//присвоить подпись изображения
-        })
-    }
-
     getNewCard () { // метод создания новой карточки
         this._cardElement = this._makeCardElement(); //создали шаблон и наполнили данными
         const likeButton = this._cardElement.querySelector('.place__like-button');
         this._listenLikedButton(likeButton); //назначили слушатель "понравилось"
         const deleteButton = this._cardElement.querySelector('.place__delete-icon');
         this._listenDeleteButton(deleteButton); //назначили слушатель "удалить"
-        this._openPopupImageFew(this._cardImageElement); //назначили слушатель открытия попапа с изображением
+        this._cardImageElement.addEventListener('click', 
+            function(evt) {
+                const imgPopup = new PopupWithImage(evt);
+                imgPopup.open();
+                imgPopup.setEventListeners();
+            }
+        )
         return this._cardElement; //вернули карточку
     };
 };

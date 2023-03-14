@@ -5,17 +5,17 @@ import {Section} from './Section.js';
 import {Popup} from './Popup.js';
 import '../pages/index.css';
 //Объявляем переменные 
-const popupsArray = Array.from(document.querySelectorAll('.popup'));//массив всех попапов
+//const popupsArray = Array.from(document.querySelectorAll('.popup'));//массив всех попапов
 const popupProfileElement = document.querySelector('.profile-popup'); //попап редактирования профиля
 //const popupProfileCloseIconElement = popupProfileElement.querySelector('.profile-popup-container__close-icon'); //кнопка закрытия попапа редактирования профиля
 const editButtonElement = document.querySelector('.profile__edit-button'); //кнопка "изменить" профиль
 const formProfileElement = document.querySelector('.form-popup_type_profile'); // форма редактирования профиля
-const popupAddButtonElement = document.querySelector('.add-button-popup'); //попап добавления карточки
+//const popupAddButtonElement = document.querySelector('.add-button-popup'); //попап добавления карточки
 const addButtonElement = document.querySelector('.add-button');//кнопка "добавить"
-const popupAddButtonCloseIconElement = document.querySelector('.add-button-popup-container__close-icon') //кнопка закрытия формы добавления карточки
+//const popupAddButtonCloseIconElement = document.querySelector('.add-button-popup-container__close-icon') //кнопка закрытия формы добавления карточки
 const formAddButtonElement = document.querySelector('.form-popup_type_add');//форма добавления карточки
-const popupImageFew = document.querySelector('.place-popup');//попап просмотра изображения
-const popupImageFewCloseIconElement = document.querySelector('.img-popup-container__close-icon'); //кнопка закрытия попапа просмотра изображения
+//const popupImageFew = document.querySelector('.place-popup');//попап просмотра изображения
+//const popupImageFewCloseIconElement = document.querySelector('.img-popup-container__close-icon'); //кнопка закрытия попапа просмотра изображения
 //поля формы редактирования профиля
 const nameInput = formProfileElement.querySelector('.form-popup__input_type_name');
 const jobInput = formProfileElement.querySelector('.form-popup__input_type_job');
@@ -24,36 +24,6 @@ const profileTitleElement = document.querySelector('.profile__title');
 const profileSubtitleElement = document.querySelector('.profile__subtitle');
 //элемент places
 export const placesElement = document.querySelector('.places');
-
-/*const checkPressEsc = (evt) => { // обработчик проверка нажатой клавиши и удаление обработчика Escape
-    if (evt.key === 'Escape') { //если нашали Esc
-        closePopup(document.querySelector('.popup_is-opened')); //закрыть открытый попап
-    }
-}
-
-function closePopupPressEsc () { //слушатель закрытия попапа при нажатии Escape
-    window.addEventListener('keydown', checkPressEsc)
-}*/
-
-//функция открытия попапов
-export const openPopup = function (element) {
-    element.classList.add('popup_is-opened'); //добавили класс
-    closePopupPressEsc(); //добавили слушатель закрытия по Esc
-}
-
-//функция закрытия попапов
-const closePopup = function (element) {
-    window.removeEventListener('keydown', checkPressEsc) //удалить слушатель закрытия по Esc
-    element.classList.remove('popup_is-opened'); //удалили класс
-}
-
-/*function closePopupClickOverlay (popup) { // обработчик закрытия попапа при клике по оверлэю
-    popup.addEventListener('click', function (evt) {
-        if (evt.target === evt.currentTarget) {
-            closePopup(popup);
-        }
-    })
-}*/
 
 //Функция открытия формы редактирования профиля
 const openPopupEditProfile = function () {
@@ -83,13 +53,9 @@ const handleFormAddCardByUser = function (evt) {
 }
 
 const generateCard = (item, selector) => { //функция сосздания карточки с использованием класса Card 
-
     const newCard = new Card (item, selector); 
-
     const cardElement = newCard.getNewCard(); 
-
     return cardElement; 
-
 }
 
 const defaultCards = new Section ( { // создание класса с начальными карточками
@@ -103,19 +69,21 @@ const defaultCards = new Section ( { // создание класса с нач�
     '.places'
 );
 
-const profilePopup = new Popup('profile-popup'); //создание попапа профайла
-editButtonElement.addEventListener ('click', function () {
-    profilePopup.open();
-    profilePopup.setEventListeners();
+defaultCards.renderItems(); // добавили карточки на страницу
+
+editButtonElement.addEventListener ('click', function () { //добавлен слушатель кнопке редактирования профиля
+    const profilePopup = new Popup('profile-popup'); //создали экземпляр попапа
+    profilePopup.open(); // открыли
+    profilePopup.setEventListeners(); //назначили слушатели
 })
 
-const addPopup = new Popup('add-button-popup'); //создание попапа добавлeния карточки
-addButtonElement.addEventListener ('click', function () {
+addButtonElement.addEventListener ('click', function () { //добавлен слушатель кнопке добавления карточки
+    const addPopup = new Popup('add-button-popup'); 
     addPopup.open();
     addPopup.setEventListeners();
 })
 
-defaultCards.renderItems(); // добавили карточки на страницу
+
 
 Array.from(document.querySelectorAll('.form-popup')).forEach((form => {
     const formValidator = new FormValidator(formValidationConfig, form);
@@ -126,15 +94,3 @@ Array.from(document.querySelectorAll('.form-popup')).forEach((form => {
 formProfileElement.addEventListener('submit', handleFormProfileSubmit); //назначаем обработчик событию отправки формы редактирования профиля
 
 formAddButtonElement.addEventListener('submit',handleFormAddCardByUser); // назначаем кнопке "создать" бработчик события
-
-/*addButtonElement.addEventListener('click', function () {
-                                                openPopup(popupAddButtonElement)
-                                            }); //назначаем кнопке "добавить" обработчик события*/
-
-/*popupAddButtonCloseIconElement.addEventListener('click', function () {
-                                                            closePopup(popupAddButtonElement)
-                                                        }); //назначаем кнопке закрытия формы добавления карточки обработчик события*/
-
-popupImageFewCloseIconElement.addEventListener('click', function () {
-                                                            closePopup(popupImageFew)
-                                                        }); //назначаем кнопке закрытия попапа с изображением обработчик
