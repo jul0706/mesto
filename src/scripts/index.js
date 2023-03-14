@@ -2,11 +2,12 @@ import {Card} from './Card.js';
 import {initialCards, formValidationConfig,} from './consts.js';
 import {FormValidator} from './FormValidator.js';
 import {Section} from './Section.js';
+import {Popup} from './Popup.js';
 import '../pages/index.css';
 //Объявляем переменные 
 const popupsArray = Array.from(document.querySelectorAll('.popup'));//массив всех попапов
 const popupProfileElement = document.querySelector('.profile-popup'); //попап редактирования профиля
-const popupProfileCloseIconElement = popupProfileElement.querySelector('.profile-popup-container__close-icon'); //кнопка закрытия попапа редактирования профиля
+//const popupProfileCloseIconElement = popupProfileElement.querySelector('.profile-popup-container__close-icon'); //кнопка закрытия попапа редактирования профиля
 const editButtonElement = document.querySelector('.profile__edit-button'); //кнопка "изменить" профиль
 const formProfileElement = document.querySelector('.form-popup_type_profile'); // форма редактирования профиля
 const popupAddButtonElement = document.querySelector('.add-button-popup'); //попап добавления карточки
@@ -24,7 +25,7 @@ const profileSubtitleElement = document.querySelector('.profile__subtitle');
 //элемент places
 export const placesElement = document.querySelector('.places');
 
-const checkPressEsc = (evt) => { // обработчик проверка нажатой клавиши и удаление обработчика Escape
+/*const checkPressEsc = (evt) => { // обработчик проверка нажатой клавиши и удаление обработчика Escape
     if (evt.key === 'Escape') { //если нашали Esc
         closePopup(document.querySelector('.popup_is-opened')); //закрыть открытый попап
     }
@@ -32,7 +33,7 @@ const checkPressEsc = (evt) => { // обработчик проверка наж
 
 function closePopupPressEsc () { //слушатель закрытия попапа при нажатии Escape
     window.addEventListener('keydown', checkPressEsc)
-}
+}*/
 
 //функция открытия попапов
 export const openPopup = function (element) {
@@ -46,13 +47,13 @@ const closePopup = function (element) {
     element.classList.remove('popup_is-opened'); //удалили класс
 }
 
-function closePopupClickOverlay (popup) { // обработчик закрытия попапа при клике по оверлэю
+/*function closePopupClickOverlay (popup) { // обработчик закрытия попапа при клике по оверлэю
     popup.addEventListener('click', function (evt) {
         if (evt.target === evt.currentTarget) {
             closePopup(popup);
         }
     })
-}
+}*/
 
 //Функция открытия формы редактирования профиля
 const openPopupEditProfile = function () {
@@ -77,11 +78,21 @@ const handleFormAddCardByUser = function (evt) {
     link: formAddButtonElement.querySelector('.form-popup__input_type_link').value,
     };
     placesElement.prepend(generateCard(userCard, '#place__template')); //добавили карточку на страницу
-    closePopup(popupAddButtonElement);
+    //closePopup(popupAddButtonElement);
     formAddButtonElement.reset();
 }
 
-const defaultCards = new Section ( {
+const generateCard = (item, selector) => { //функция сосздания карточки с использованием класса Card 
+
+    const newCard = new Card (item, selector); 
+
+    const cardElement = newCard.getNewCard(); 
+
+    return cardElement; 
+
+}
+
+const defaultCards = new Section ( { // создание класса с начальными карточками
     array: initialCards,
     renderer: (item) => {
         const newCard = new Card (item, '#place__template');
@@ -92,34 +103,37 @@ const defaultCards = new Section ( {
     '.places'
 );
 
-defaultCards.renderItems();
+const profilePopup = new Popup('profile-popup'); //создание попапа профайла
+editButtonElement.addEventListener ('click', function () {
+    profilePopup.open();
+    profilePopup.setEventListeners();
+})
+
+const addPopup = new Popup('add-button-popup'); //создание попапа добавлeния карточки
+addButtonElement.addEventListener ('click', function () {
+    addPopup.open();
+    addPopup.setEventListeners();
+})
+
+defaultCards.renderItems(); // добавили карточки на страницу
 
 Array.from(document.querySelectorAll('.form-popup')).forEach((form => {
     const formValidator = new FormValidator(formValidationConfig, form);
     formValidator.enableValidation(form);
 }))
 
-popupsArray.forEach (function(popup) { //каждому попапу назначили слушатель закрытия при клике по оверлэй
-    closePopupClickOverlay(popup);
-})
 
 formProfileElement.addEventListener('submit', handleFormProfileSubmit); //назначаем обработчик событию отправки формы редактирования профиля
 
-editButtonElement.addEventListener('click', openPopupEditProfile); //назначаем кнопке редактирования обработчик события
-
-popupProfileCloseIconElement.addEventListener('click', function () {
-                                                            closePopup(popupProfileElement)
-                                                        }); // назначаем кнопке закрытия формы обработчик события
-
 formAddButtonElement.addEventListener('submit',handleFormAddCardByUser); // назначаем кнопке "создать" бработчик события
 
-addButtonElement.addEventListener('click', function () {
+/*addButtonElement.addEventListener('click', function () {
                                                 openPopup(popupAddButtonElement)
-                                            }); //назначаем кнопке "добавить" обработчик события
+                                            }); //назначаем кнопке "добавить" обработчик события*/
 
-popupAddButtonCloseIconElement.addEventListener('click', function () {
+/*popupAddButtonCloseIconElement.addEventListener('click', function () {
                                                             closePopup(popupAddButtonElement)
-                                                        }); //назначаем кнопке закрытия формы добавления карточки обработчик события
+                                                        }); //назначаем кнопке закрытия формы добавления карточки обработчик события*/
 
 popupImageFewCloseIconElement.addEventListener('click', function () {
                                                             closePopup(popupImageFew)
