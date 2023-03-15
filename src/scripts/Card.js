@@ -47,11 +47,11 @@ export class Card {
         this._listenLikedButton(likeButton); //назначили слушатель "понравилось"
         const deleteButton = this._cardElement.querySelector('.place__delete-icon');
         this._listenDeleteButton(deleteButton); //назначили слушатель "удалить"
-        this._cardImageElement.addEventListener('click', 
+        this._cardImageElement.addEventListener('click', //добавили слушатель открытия попапа изображению
             function(evt) {
-                const imgPopup = new PopupWithImage(evt);
-                imgPopup.open();
-                imgPopup.setEventListeners();
+                const imgPopup = new PopupWithImage(evt); // создали попап пром=смотра изображения
+                imgPopup.open(); // открыли попап
+                imgPopup.setEventListeners(); //назначили обработчики
             }
         )
         return this._cardElement; //вернули карточку

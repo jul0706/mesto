@@ -3,6 +3,7 @@ import {initialCards, formValidationConfig,} from './consts.js';
 import {FormValidator} from './FormValidator.js';
 import {Section} from './Section.js';
 import {Popup} from './Popup.js';
+import { PopupWithForm } from './PopupWithForm.js';
 import '../pages/index.css';
 //Объявляем переменные 
 //const popupsArray = Array.from(document.querySelectorAll('.popup'));//массив всех попапов
@@ -13,7 +14,7 @@ const formProfileElement = document.querySelector('.form-popup_type_profile'); /
 //const popupAddButtonElement = document.querySelector('.add-button-popup'); //попап добавления карточки
 const addButtonElement = document.querySelector('.add-button');//кнопка "добавить"
 //const popupAddButtonCloseIconElement = document.querySelector('.add-button-popup-container__close-icon') //кнопка закрытия формы добавления карточки
-const formAddButtonElement = document.querySelector('.form-popup_type_add');//форма добавления карточки
+//const formAddButtonElement = document.querySelector('.form-popup_type_add');//форма добавления карточки
 //const popupImageFew = document.querySelector('.place-popup');//попап просмотра изображения
 //const popupImageFewCloseIconElement = document.querySelector('.img-popup-container__close-icon'); //кнопка закрытия попапа просмотра изображения
 //поля формы редактирования профиля
@@ -32,32 +33,6 @@ const openPopupEditProfile = function () {
     jobInput.value = profileSubtitleElement.textContent;
 }
 
-// Обработчик отправки формы редактирования профиля
-function handleFormProfileSubmit (evt) {
-    evt.preventDefault(); // отмена стандартной отправки формы
-    profileTitleElement.textContent = nameInput.value;  // Вставляем новые значения
-    profileSubtitleElement.textContent = jobInput.value;
-    closePopup(popupProfileElement); //закрываем форму
-};
-
-//обработчик отправки формы добавления новой карточки пользователем
-const handleFormAddCardByUser = function (evt) {
-    evt.preventDefault(); // отмена стандартной отправки формы
-    const userCard = {
-    name: formAddButtonElement.querySelector('.form-popup__input_type_place').value,
-    link: formAddButtonElement.querySelector('.form-popup__input_type_link').value,
-    };
-    placesElement.prepend(generateCard(userCard, '#place__template')); //добавили карточку на страницу
-    //closePopup(popupAddButtonElement);
-    formAddButtonElement.reset();
-}
-
-const generateCard = (item, selector) => { //функция сосздания карточки с использованием класса Card 
-    const newCard = new Card (item, selector); 
-    const cardElement = newCard.getNewCard(); 
-    return cardElement; 
-}
-
 const defaultCards = new Section ( { // создание класса с начальными карточками
     array: initialCards,
     renderer: (item) => {
@@ -71,18 +46,32 @@ const defaultCards = new Section ( { // создание класса с нач�
 
 defaultCards.renderItems(); // добавили карточки на страницу
 
+const profilePopup = new PopupWithForm('profile-popup',  (array) => { //создали экземпляр попапа профайла
+    profileTitleElement.textContent = array[0];
+    profileSubtitleElement.textContent = array[1];
+});
+
+profilePopup.setEventListeners(); //назначили слушатели
+
 editButtonElement.addEventListener ('click', function () { //добавлен слушатель кнопке редактирования профиля
-    const profilePopup = new Popup('profile-popup'); //создали экземпляр попапа
-    profilePopup.open(); // открыли
-    profilePopup.setEventListeners(); //назначили слушатели
+      profilePopup.open(); 
 })
+
+const addButtonPopup = new PopupWithForm('add-button-popup', (arr) => { //создали попап добавления карточки пользователем
+    const userCardData = {
+        name: arr[0],
+        link: arr[1],
+        };
+    const userCard = new Card (userCardData, '#place__template');
+    const cardElement = userCard.getNewCard();
+    placesElement.prepend(cardElement);
+})
+
+addButtonPopup.setEventListeners(); //назначили слушатели
 
 addButtonElement.addEventListener ('click', function () { //добавлен слушатель кнопке добавления карточки
-    const addPopup = new Popup('add-button-popup'); 
-    addPopup.open();
-    addPopup.setEventListeners();
+    addButtonPopup.open()
 })
-
 
 
 Array.from(document.querySelectorAll('.form-popup')).forEach((form => {
@@ -90,7 +79,3 @@ Array.from(document.querySelectorAll('.form-popup')).forEach((form => {
     formValidator.enableValidation(form);
 }))
 
-
-formProfileElement.addEventListener('submit', handleFormProfileSubmit); //назначаем обработчик событию отправки формы редактирования профиля
-
-formAddButtonElement.addEventListener('submit',handleFormAddCardByUser); // назначаем кнопке "создать" бработчик события
