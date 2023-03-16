@@ -7,27 +7,27 @@ import magnitogorskImage from '../images/magnitogorsk.jpg';
 
 export const initialCards = [ 
     {
-        name: 'Абхазия',
+        place: 'Абхазия',
         link: abhaziaImage
     },
     {
-        name: 'гора Аю-Даг',
+        place: 'гора Аю-Даг',
         link: ayuDagImage,
     },
     {
-        name: 'озеро Банное (Якты-Куль)',
+        place: 'озеро Банное (Якты-Куль)',
         link: bannoeImage,
     },
     {
-        name: 'республика Башкортостан',
+        place: 'республика Башкортостан',
         link: bashkortostanImage
     },
     {
-        name: 'Гурзуф',
+        place: 'Гурзуф',
         link: gurzufImage
     },
     {
-        name: 'Магнитогорск',
+        place: 'Магнитогорск',
         link: magnitogorskImage
     },
 ];

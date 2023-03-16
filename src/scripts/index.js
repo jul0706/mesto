@@ -5,9 +5,10 @@ import {Section} from './Section.js';
 import {Popup} from './Popup.js';
 import { PopupWithForm } from './PopupWithForm.js';
 import '../pages/index.css';
+import { UserInfo } from './UserInfo.js';
 //Объявляем переменные 
 //const popupsArray = Array.from(document.querySelectorAll('.popup'));//массив всех попапов
-const popupProfileElement = document.querySelector('.profile-popup'); //попап редактирования профиля
+//const popupProfileElement = document.querySelector('.profile-popup'); //попап редактирования профиля
 //const popupProfileCloseIconElement = popupProfileElement.querySelector('.profile-popup-container__close-icon'); //кнопка закрытия попапа редактирования профиля
 const editButtonElement = document.querySelector('.profile__edit-button'); //кнопка "изменить" профиль
 const formProfileElement = document.querySelector('.form-popup_type_profile'); // форма редактирования профиля
@@ -21,17 +22,11 @@ const addButtonElement = document.querySelector('.add-button');//кнопка "�
 const nameInput = formProfileElement.querySelector('.form-popup__input_type_name');
 const jobInput = formProfileElement.querySelector('.form-popup__input_type_job');
 // элементы страницы, куда вставим значения полей формы
-const profileTitleElement = document.querySelector('.profile__title');   
-const profileSubtitleElement = document.querySelector('.profile__subtitle');
+//const profileTitleElement = document.querySelector('.profile__title');   
+//const profileSubtitleElement = document.querySelector('.profile__subtitle');
+
 //элемент places
 export const placesElement = document.querySelector('.places');
-
-//Функция открытия формы редактирования профиля
-const openPopupEditProfile = function () {
-    openPopup(popupProfileElement);
-    nameInput.value = profileTitleElement.textContent; //передали содержимое заголовков страницы в форму профайла
-    jobInput.value = profileSubtitleElement.textContent;
-}
 
 const defaultCards = new Section ( { // создание класса с начальными карточками
     array: initialCards,
@@ -46,25 +41,37 @@ const defaultCards = new Section ( { // создание класса с нач�
 
 defaultCards.renderItems(); // добавили карточки на страницу
 
-const profilePopup = new PopupWithForm('profile-popup',  (array) => { //создали экземпляр попапа профайла
-    profileTitleElement.textContent = array[0];
-    profileSubtitleElement.textContent = array[1];
-});
+const profilePopup = new PopupWithForm({ //создали экземпляр попапа профайла
+    popupSelector: 'profile-popup',
+    submitCallback:  (formData) => { 
+        const user = new UserInfo({
+            nameElement: '.profile__title',
+            jobElement: '.profile__subtitle'
+        });
+    user.setUserInfo(formData);
+    }
+})
 
 profilePopup.setEventListeners(); //назначили слушатели
 
 editButtonElement.addEventListener ('click', function () { //добавлен слушатель кнопке редактирования профиля
-      profilePopup.open(); 
+    profilePopup.open();
+    const user = new UserInfo({
+        nameElement: '.profile__title',
+        jobElement: '.profile__subtitle'
+    });
+    const userData = user.getUserInfo(); 
+    nameInput.value = userData.name; //передали содержимое заголовков страницы в поля формы профайла
+    jobInput.value = userData.job;
 })
 
-const addButtonPopup = new PopupWithForm('add-button-popup', (arr) => { //создали попап добавления карточки пользователем
-    const userCardData = {
-        name: arr[0],
-        link: arr[1],
-        };
-    const userCard = new Card (userCardData, '#place__template');
-    const cardElement = userCard.getNewCard();
-    placesElement.prepend(cardElement);
+const addButtonPopup = new PopupWithForm({
+    popupSelector: 'add-button-popup',
+    submitCallback:   (userCardData) => { //создали попап добавления карточки пользователем
+        const userCard = new Card (userCardData, '#place__template');
+        const cardElement = userCard.getNewCard();
+        placesElement.prepend(cardElement);
+    }
 })
 
 addButtonPopup.setEventListeners(); //назначили слушатели

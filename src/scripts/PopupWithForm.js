@@ -1,7 +1,7 @@
 import { Popup } from "./Popup.js";
 
 export class PopupWithForm extends Popup {
-    constructor(popupSelector, submitCallback) {
+    constructor({popupSelector, submitCallback}) {
         super(popupSelector);
         this._submitCallback = submitCallback;
         this._form = this._popup.querySelector('form');
@@ -9,9 +9,12 @@ export class PopupWithForm extends Popup {
     }
 
     _getInputValues () { // получение значений полей
-        const inputsArray = Array.from(this._form.querySelectorAll('.form-popup__input'));
-        this._inputsValueArray = inputsArray.map(item=> item.value)
-        return this._inputsValueArray; //вернули массив со значениями
+        this._inputsArray = Array.from(this._form.querySelectorAll('.form-popup__input'));
+        this._formValues = {};
+        this._inputsArray.forEach(input => {
+            this._formValues[input.name] = input.value
+        })
+        return this._formValues; //вернули объект со значениями
     }
 
     close() { //добавили в родительский метод очистку полей формы

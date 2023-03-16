@@ -3,7 +3,7 @@ import { PopupWithImage } from './PopupWithImage.js';
 
 export class Card {
     constructor(item, templateSelector) {
-        this._name = item.name;
+        this._name = item.place;
         this._url = item.link;
         this._template = templateSelector;
     }
