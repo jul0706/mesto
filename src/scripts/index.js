@@ -1,37 +1,29 @@
+//импортируем классы
 import {Card} from './Card.js';
 import {initialCards, formValidationConfig,} from './consts.js';
 import {FormValidator} from './FormValidator.js';
 import {Section} from './Section.js';
-import {Popup} from './Popup.js';
 import { PopupWithForm } from './PopupWithForm.js';
-import '../pages/index.css';
 import { UserInfo } from './UserInfo.js';
+import { PopupWithImage } from './PopupWithImage.js';
+import '../pages/index.css';
 //Объявляем переменные 
-//const popupsArray = Array.from(document.querySelectorAll('.popup'));//массив всех попапов
-//const popupProfileElement = document.querySelector('.profile-popup'); //попап редактирования профиля
-//const popupProfileCloseIconElement = popupProfileElement.querySelector('.profile-popup-container__close-icon'); //кнопка закрытия попапа редактирования профиля
 const editButtonElement = document.querySelector('.profile__edit-button'); //кнопка "изменить" профиль
 const formProfileElement = document.querySelector('.form-popup_type_profile'); // форма редактирования профиля
-//const popupAddButtonElement = document.querySelector('.add-button-popup'); //попап добавления карточки
 const addButtonElement = document.querySelector('.add-button');//кнопка "добавить"
-//const popupAddButtonCloseIconElement = document.querySelector('.add-button-popup-container__close-icon') //кнопка закрытия формы добавления карточки
-//const formAddButtonElement = document.querySelector('.form-popup_type_add');//форма добавления карточки
-//const popupImageFew = document.querySelector('.place-popup');//попап просмотра изображения
-//const popupImageFewCloseIconElement = document.querySelector('.img-popup-container__close-icon'); //кнопка закрытия попапа просмотра изображения
-//поля формы редактирования профиля
 const nameInput = formProfileElement.querySelector('.form-popup__input_type_name');
 const jobInput = formProfileElement.querySelector('.form-popup__input_type_job');
-// элементы страницы, куда вставим значения полей формы
-//const profileTitleElement = document.querySelector('.profile__title');   
-//const profileSubtitleElement = document.querySelector('.profile__subtitle');
-
 //элемент places
 export const placesElement = document.querySelector('.places');
 
 const defaultCards = new Section ( { // создание класса с начальными карточками
     array: initialCards,
     renderer: (item) => {
-        const newCard = new Card (item, '#place__template');
+        const newCard = new Card (item, '#place__template', function(evt) {
+            const imgPopup = new PopupWithImage(evt); // создали попап промосмотра изображения
+            imgPopup.open(); // открыли попап
+            imgPopup.setEventListeners(); //назначили обработчики
+        });
         const cardElement = newCard.getNewCard();
         defaultCards.addItem(cardElement);
     },
@@ -41,13 +33,14 @@ const defaultCards = new Section ( { // создание класса с нач�
 
 defaultCards.renderItems(); // добавили карточки на страницу
 
+const user = new UserInfo({
+    nameElement: '.profile__title',
+    jobElement: '.profile__subtitle'
+});
+
 const profilePopup = new PopupWithForm({ //создали экземпляр попапа профайла
     popupSelector: 'profile-popup',
     submitCallback:  (formData) => { 
-        const user = new UserInfo({
-            nameElement: '.profile__title',
-            jobElement: '.profile__subtitle'
-        });
     user.setUserInfo(formData);
     }
 })
@@ -56,19 +49,19 @@ profilePopup.setEventListeners(); //назначили слушатели
 
 editButtonElement.addEventListener ('click', function () { //добавлен слушатель кнопке редактирования профиля
     profilePopup.open();
-    const user = new UserInfo({
-        nameElement: '.profile__title',
-        jobElement: '.profile__subtitle'
-    });
     const userData = user.getUserInfo(); 
     nameInput.value = userData.name; //передали содержимое заголовков страницы в поля формы профайла
     jobInput.value = userData.job;
 })
 
-const addButtonPopup = new PopupWithForm({
+const addButtonPopup = new PopupWithForm({//создали попап добавления карточки пользователем
     popupSelector: 'add-button-popup',
-    submitCallback:   (userCardData) => { //создали попап добавления карточки пользователем
-        const userCard = new Card (userCardData, '#place__template');
+    submitCallback:   (userCardData) => { 
+        const userCard = new Card (userCardData, '#place__template', function(evt) {
+            const imgPopup = new PopupWithImage(evt); // создали попап промосмотра изображения
+            imgPopup.open(); // открыли попап
+            imgPopup.setEventListeners(); //назначили обработчики
+        });
         const cardElement = userCard.getNewCard();
         placesElement.prepend(cardElement);
     }
@@ -80,9 +73,7 @@ addButtonElement.addEventListener ('click', function () { //добавлен с�
     addButtonPopup.open()
 })
 
-
-Array.from(document.querySelectorAll('.form-popup')).forEach((form => {
+Array.from(document.querySelectorAll('.form-popup')).forEach((form => { //создали объект валидации для каждой формы
     const formValidator = new FormValidator(formValidationConfig, form);
     formValidator.enableValidation(form);
 }))
-

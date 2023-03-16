@@ -1,11 +1,11 @@
-import {placesElement, openPopup} from './index.js'
-import { PopupWithImage } from './PopupWithImage.js';
+import {placesElement} from './index.js'
 
 export class Card {
-    constructor(item, templateSelector) {
+    constructor(item, templateSelector, handleCardClick) {
         this._name = item.place;
         this._url = item.link;
         this._template = templateSelector;
+        this._handleCardClick = handleCardClick;
     }
 
     _makeTemplateElement () { // метод создания шаблона  HTML разметки карточки
@@ -47,13 +47,7 @@ export class Card {
         this._listenLikedButton(likeButton); //назначили слушатель "понравилось"
         const deleteButton = this._cardElement.querySelector('.place__delete-icon');
         this._listenDeleteButton(deleteButton); //назначили слушатель "удалить"
-        this._cardImageElement.addEventListener('click', //добавили слушатель открытия попапа изображению
-            function(evt) {
-                const imgPopup = new PopupWithImage(evt); // создали попап пром=смотра изображения
-                imgPopup.open(); // открыли попап
-                imgPopup.setEventListeners(); //назначили обработчики
-            }
-        )
+        this._cardImageElement.addEventListener('click', (evt)=>{this._handleCardClick(evt)}) //назначили слушатель открытия попапа просмотра изображения
         return this._cardElement; //вернули карточку
     };
 };
