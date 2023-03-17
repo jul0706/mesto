@@ -9,6 +9,7 @@ export class Popup {
 
     open () {
         this._popup.classList.add('popup_is-opened'); //добавили класс
+        this._handleEscClose(); //добавили слушатель закрытия по Esc
     }
 
     _checkPressEsc (evt) { // обработчик проверка нажатой клавиши
@@ -36,6 +37,5 @@ export class Popup {
         this._closeButton = this._popup.querySelector('.close-icon');
         this._closeButton.addEventListener('click', this.close);
         this._popup.addEventListener('click', this._checkPressOverlay);
-        this._handleEscClose();
     }
 }

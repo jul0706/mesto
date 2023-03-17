@@ -1,4 +1,4 @@
-import {placesElement} from './index.js'
+import {placesElement} from '../../scripts/consts.js'
 
 export class Card {
     constructor(item, templateSelector, handleCardClick) {
@@ -35,9 +35,9 @@ export class Card {
     };
 
     _listenDeleteButton(button) { //слушатель кнопки "удалить"
-        button.addEventListener('click', function(evt) {
-            const deletedCardElement = evt.target.closest('.place'); //карточка, на которой нажали кнопку "удалить"
-            deletedCardElement.remove();
+        button.addEventListener('click', () => {
+            this._cardElement.remove();
+            this._element = null;
         })
     };
 

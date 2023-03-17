@@ -7,6 +7,7 @@ export class FormValidator {
         this._inputErrorClass = config.inputErrorClass;
         this._errorClass = config.errorClass;
         this.form = form;
+        this._buttonSubmit = form.querySelector(this._submitButtonSelector);
     }
 
     _showInputError = (form, input, errorMessage) => { //функция показа ошибки поля ввода
@@ -31,14 +32,13 @@ export class FormValidator {
         }
     }
     _toggleButtonState = (formElement) => {
-        const buttonSubmit = formElement.querySelector(this._submitButtonSelector); //нашли кнопку
         const isFormValid = formElement.checkValidity(); //проверка валидности формы
         if (!isFormValid) { // если форма не валидна
-            buttonSubmit.disabled = true; // добавили кнопке атрибут disable
-            buttonSubmit.classList.add(this._inactiveButtonClass); // добавили стиль
+            this._buttonSubmit.disabled = true; // добавили кнопке атрибут disable
+            this._buttonSubmit.classList.add(this._inactiveButtonClass); // добавили стиль
         } else {
-            buttonSubmit.disabled = false; // убрали атрибут disable
-            buttonSubmit.classList.remove(this._inactiveButtonClass); // убрали стиль
+            this._buttonSubmit.disabled = false; // убрали атрибут disable
+            this._buttonSubmit.classList.remove(this._inactiveButtonClass); // убрали стиль
         }
     }
 
@@ -55,9 +55,8 @@ export class FormValidator {
 
     _setSubmitListener = (form) => { // обработчик переключения состояния кнопки при отправке формы
         form.addEventListener('submit', () => {
-            const buttonSubmit = form.querySelector(this._submitButtonSelector); //нашли кнопку
-            buttonSubmit.disabled = true; // добавили кнопке атрибут disable
-            buttonSubmit.classList.add(this._inactiveButtonClass); // добавили стиль
+            this._buttonSubmit.disabled = true; // добавили кнопке атрибут disable
+            this._buttonSubmit.classList.add(this._inactiveButtonClass); // добавили стиль
         })
     }
 

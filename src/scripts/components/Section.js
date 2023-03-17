@@ -6,7 +6,7 @@ export class Section { //отрисовка элементов на страни
     }
     
     addItem (item) {
-        this._container.append(item)
+        this._container.prepend(item)
     }
 
     renderItems() {

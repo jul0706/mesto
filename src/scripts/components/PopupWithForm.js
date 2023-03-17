@@ -6,10 +6,10 @@ export class PopupWithForm extends Popup {
         this._submitCallback = submitCallback;
         this._form = this._popup.querySelector('form');
         this._getInputValues = this._getInputValues.bind(this);
+        this._inputsArray = Array.from(this._form.querySelectorAll('.form-popup__input'));
     }
 
     _getInputValues () { // получение значений полей
-        this._inputsArray = Array.from(this._form.querySelectorAll('.form-popup__input'));
         this._formValues = {};
         this._inputsArray.forEach(input => {
             this._formValues[input.name] = input.value
