@@ -2,8 +2,8 @@ import {placesElement} from '../../scripts/consts.js'
 
 export class Card {
     constructor(item, templateSelector, handleCardClick) {
-        this.name = item.place;
-        this.url = item.link;
+        this._name = item.place;
+        this._url = item.link;
         this._template = templateSelector;
         this._handleCardClick = handleCardClick;
     }
@@ -21,9 +21,9 @@ export class Card {
         const placeElement = this._makeTemplateElement();
         this._cardImageElement = placeElement.querySelector('.place__image'); //в переменную сохранили элемент изображения карточки
         this._placeTitleElement = placeElement.querySelector('.place__title'); //в переменную сохранили элемент названия карточки
-        this._placeTitleElement.textContent = this.name; //добавляем названия
-        this._cardImageElement.src = this.url; //добавляем картинку
-        this._cardImageElement.alt = this.name; //добавляем подпись
+        this._placeTitleElement.textContent = this._name; //добавляем названия
+        this._cardImageElement.src = this._url; //добавляем картинку
+        this._cardImageElement.alt = this._name; //добавляем подпись
         return placeElement;
     }
 
@@ -47,7 +47,7 @@ export class Card {
         this._listenLikedButton(likeButton); //назначили слушатель "понравилось"
         const deleteButton = this._cardElement.querySelector('.place__delete-icon');
         this._listenDeleteButton(deleteButton); //назначили слушатель "удалить"
-        this._cardImageElement.addEventListener('click', (evt)=>{this._handleCardClick(evt)}) //назначили слушатель открытия попапа просмотра изображения
+        this._cardImageElement.addEventListener('click', ()=>{this._handleCardClick(this._name, this._url)}) //назначили слушатель открытия попапа просмотра изображения
         return this._cardElement; //вернули карточку
     };
 };

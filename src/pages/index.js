@@ -10,8 +10,8 @@ import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import '../pages/index.css';
 
 function generateCard (data, selector) { //функция создания карточки
-    const newCard = new Card (data, selector, function() {
-        imgPopup.open(newCard.url, newCard.name); // открыли попап
+    const newCard = new Card (data, selector, function(place, url) {
+        imgPopup.open(url, place); // колбэк открытия попапа
     });
     const cardElement = newCard.getNewCard();
     return cardElement;
