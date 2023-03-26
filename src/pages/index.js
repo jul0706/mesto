@@ -9,17 +9,27 @@ import { UserInfo } from '../scripts/components/UserInfo.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import '../pages/index.css';
 import { Api } from '../scripts/components/Api.js';
+import {PopupAreYouShure} from '../scripts/components/PopupAreYouShure';
+
+const popupDeleteCard = new PopupAreYouShure('delete-popup', function(id){
+    api.deleteCard(id, config);
+});
+popupDeleteCard.setEventListeners();
+
 
 function generateCard (data, selector) { //функция создания карточки
     const newCard = new Card (data, selector, function(place, url) {
         imgPopup.open(url, place); // колбэк открытия попапа
-    });
+    },
+    popupDeleteCard);
     const cardElement = newCard.getNewCard();
     return cardElement;
 }
 
 const imgPopup = new PopupWithImage(); // создали попап промосмотра изображения
 imgPopup.setEventListeners(); //назначили обработчики
+
+
 
 const user = new UserInfo({ // создали экземпляр класса
     nameElement: '.profile__title',

@@ -58,4 +58,19 @@ export class Api {
             return Promise.reject('Упс...Ошибка!')
         })
     }
+
+    deleteCard (id, configUrl) {
+        return fetch(`${this._url}${configUrl}/${id}`,{
+            method: 'DELETE',
+            headers: {
+                authorization: this._token,
+            }
+        })
+        .then(res => { //проверили ответ
+            if (res.ok) {
+                return Promise.resolve();
+            }
+            return Promise.reject('Упс...Ошибка!')
+        })
+    }
 }

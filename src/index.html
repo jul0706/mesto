@@ -37,7 +37,9 @@
                         <img class="place__image"> <!--Изобажение-->
                         <div class="place__caption"> <!--Контейнер для нижней белой части-->
                                 <h2 class="place__title"></h2>
-                                <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
+                                <div class="place__like-area">
+                                    <button type="button" class="place__like-button" aria-label="кнопка понравилось"></button><!--Кнопка "лайк"-->
+                                </div>
                         </div>
                     </article>
                 </template>
@@ -95,6 +97,16 @@
                 </figure>
             </div>
         </div> 
+        <!--Попап удаления карточки-->
+        <div class="popup delete-popup"> <!--Попап на всю страницу-->
+            <div class="popup-container delete-popup-container"> <!--Окно формы-->
+                <button class="close-icon delete-popup-container__close-icon"></button> <!--Кнопка закрытия-->
+                <h2 class="form-popup__title">
+                    Вы уверены?
+                </h2>
+                <button type="submit" class="form-popup__button-save">Да</button>                    
+            </div>
+        </div>
     </div>     
 </body>
 </html>

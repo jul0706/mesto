@@ -8,6 +8,7 @@
     background-image: url(../../../images/like.svg);
     background-repeat: no-repeat;
     background-position: center center;
+    align-self: center;
 }
 
 .place__like-button:hover {
