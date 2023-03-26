@@ -2,7 +2,7 @@ import {placesElement} from '../../scripts/consts.js'
 
 export class Card {
     constructor(item, templateSelector, handleCardClick) {
-        this._name = item.place;
+        this._name = item.name;
         this._url = item.link;
         this._template = templateSelector;
         this._handleCardClick = handleCardClick;

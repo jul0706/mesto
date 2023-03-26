@@ -1,6 +1,5 @@
 export class Section { //отрисовка элементов на странице
-    constructor({array, renderer}, containerSelector) {
-        this._items = array;
+    constructor({renderer}, containerSelector) {
         this._renderer = renderer;
         this._container = document.querySelector(containerSelector);
     }
@@ -9,7 +8,8 @@ export class Section { //отрисовка элементов на страни
         this._container.prepend(item)
     }
 
-    renderItems() {
+    renderItems(items) {
+        this._items = items;
         this._items.forEach(item => this._renderer(item))
     }
 }

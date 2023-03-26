@@ -8,13 +8,13 @@ export class UserInfo {
     getUserInfo () {
         this.userFromPage = {
             name: this._userNameElement.textContent,
-            job: this._userJobElement.textContent,
+            about: this._userJobElement.textContent,
         };
         return this.userFromPage;
     }
 
     setUserInfo (data) {
         this._userNameElement.textContent=data.name;
-        this._userJobElement.textContent=data.job;
+        this._userJobElement.textContent=data.about;
     }
 }
