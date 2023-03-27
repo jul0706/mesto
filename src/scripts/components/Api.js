@@ -4,7 +4,7 @@ export class Api {
         this._token = 'ad81bbad-9a90-4f3d-8a69-b0152768bbd9';
         }
 
-    getDataSever (configUrl) { //метод получения информации с сервера
+    getDataServer (configUrl) { //метод получения информации с сервера
         return fetch(`${this._url}${configUrl}`, { // вернули запрос
             method: 'GET',
             headers: {
@@ -69,6 +69,21 @@ export class Api {
         .then(res => { //проверили ответ
             if (res.ok) {
                 return Promise.resolve();
+            }
+            return Promise.reject('Упс...Ошибка!')
+        })
+    }
+
+    likeCard (id, configUrl, method) {
+        return fetch(`${this._url}${configUrl}/${id}/likes`, { // вернули запрос
+            method: method,
+            headers: {
+                authorization: this._token
+            }
+        })
+        .then(res => { //проверили ответ
+            if (res.ok) {
+                return res.json();
             }
             return Promise.reject('Упс...Ошибка!')
         })

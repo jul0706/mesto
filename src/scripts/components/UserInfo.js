@@ -14,7 +14,8 @@ export class UserInfo {
     }
 
     setUserInfo (data) {
-        this._userNameElement.textContent=data.name;
-        this._userJobElement.textContent=data.about;
+        this._userNameElement.textContent=data.name; //обновили информацию на странице
+        this._userJobElement.textContent=data.about; 
+        this.userId = data._id; //сохранили ID текущего пользователя
     }
 }

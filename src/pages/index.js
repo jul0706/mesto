@@ -11,9 +11,14 @@ import '../pages/index.css';
 import { Api } from '../scripts/components/Api.js';
 import {PopupAreYouShure} from '../scripts/components/PopupAreYouShure';
 
-const popupDeleteCard = new PopupAreYouShure('delete-popup', function(id){
-    api.deleteCard(id, config);
+const popupDeleteCard = new PopupAreYouShure('delete-popup', function(id, card){ //создали класс попапа удаления, передали колбэк удаления карточки
+    const apiDeletedCard = api.deleteCard(id, 'cards'); //отправили запрос на удаление
+    apiDeletedCard.then (() => { //если запрос успешен
+        card.remove(); //удалили элемент со страницы
+        card = null; //удалили экземпляр карточки
+    })
 });
+    
 popupDeleteCard.setEventListeners();
 
 
@@ -21,7 +26,10 @@ function generateCard (data, selector) { //функция создания ка�
     const newCard = new Card (data, selector, function(place, url) {
         imgPopup.open(url, place); // колбэк открытия попапа
     },
-    popupDeleteCard);
+    popupDeleteCard,
+    user.userId,
+    api
+    );
     const cardElement = newCard.getNewCard();
     return cardElement;
 }
@@ -38,15 +46,6 @@ const user = new UserInfo({ // создали экземпляр класса
 
 const api = new Api(); //создали класс API
 
-const apiUser = api.getDataSever('users/me'); //загрузили информацию о пользователе с сервера
-
-apiUser.then(res => {
-        user.setUserInfo(res) //отразили на странице
-})
-.catch(err => {
-    alert(err)
-})
-
 const cardsOnPage = new Section ( { // создание класса с начальными карточками
     renderer: (item) => {
         const card = generateCard(item, '#place__template');
@@ -56,15 +55,26 @@ const cardsOnPage = new Section ( { // создание класса с нача
     '.places'
 );
 
-const apiCards = api.getDataSever('cards'); //загрузили карточки с сервера
+const apiUser = api.getDataServer('users/me'); //загрузили информацию о пользователе с сервера
 
-apiCards.then(res => {
-    res.reverse();
-    cardsOnPage.renderItems(res) //разместили карточки на странице
+apiUser.then(res => { // когда получили данные пользователя
+    user.setUserInfo(res) //отразили данные на странице
+    const apiCards = api.getDataServer('cards'); //загрузили карточки с сервера
+    apiCards.then(res => { //когда получили данные карточек с сервера
+        res.reverse();
+        cardsOnPage.renderItems(res) //разместили карточки на странице
+    })
+    .catch(err => {
+        alert(err)
+    })
+        
 })
 .catch(err => {
     alert(err)
 })
+
+
+
 
 
 const profilePopup = new PopupWithForm({ //создали экземпляр попапа формы редактирования профайла
