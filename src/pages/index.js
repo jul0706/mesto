@@ -1,7 +1,7 @@
 //импортируем классы
 import {Card} from '../scripts/components/Card.js';
 import {formValidationConfig, buttonOpenPopupProfile, buttonOpenPopupAddCard, 
-    inputName, inputJob,} from '../scripts/consts.js';
+    inputName, inputJob, buttonOpenEditAvatarPopup} from '../scripts/consts.js';
 import {FormValidator} from '../scripts/components/FormValidator.js';
 import {Section} from '../scripts/components/Section.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
@@ -41,7 +41,8 @@ imgPopup.setEventListeners(); //назначили обработчики
 
 const user = new UserInfo({ // создали экземпляр класса
     nameElement: '.profile__title',
-    jobElement: '.profile__subtitle'
+    jobElement: '.profile__subtitle',
+    avatarElement: '.profile__avatar'
 });
 
 const api = new Api(); //создали класс API
@@ -73,16 +74,12 @@ apiUser.then(res => { // когда получили данные пользов
     alert(err)
 })
 
-
-
-
-
 const profilePopup = new PopupWithForm({ //создали экземпляр попапа формы редактирования профайла
     popupSelector: 'profile-popup',
     submitCallback:  (formData) => { 
         const apiUser = api.editUserInfo(formData, 'users/me'); //получили данные с сервера
         apiUser.then(res =>{
-            user.setUserInfo(res);
+            user.editUserInfo(res);
         })
         .catch(err => {
             alert(err)
@@ -119,6 +116,11 @@ buttonOpenPopupAddCard.addEventListener ('click', function () { //добавле
     popupAddCard.open()
 })
 
+/*const popupEditAvatar = new PopupWithForm({ //попап редактирования аватара
+    popupSelector: 'edit-avatar-popup',
+    submitCallback: 
+})
+*/
 Array.from(document.querySelectorAll('.form-popup')).forEach((form => { //создали объект валидации для каждой формы
     const formValidator = new FormValidator(formValidationConfig, form);
     formValidator.enableValidation(form);

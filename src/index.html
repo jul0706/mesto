@@ -17,7 +17,9 @@
         <main class="main"> <!--Основное содержание страницы-->
             <!--Блок profile-->
             <section class="profile">
-                <img src="<%=require('./images/kusto.jpg')%>" alt="портрет Жака Ив Кусто" class="profile__avatar">  <!--Аватар-->
+                <button class="profile__avatar-button">
+                    <img src="#" alt="аватар пользователя" class="profile__avatar">  <!--Аватар-->
+                </button>
                 <!--Контейнер для заголовка, подзаголовка  на 1024+-->
                 <div class="profile__title-and-subtitle-form"> 
                     <div class="profile__title-form"> <!--Контейнер для заголовка с кнопкой-->
@@ -97,6 +99,7 @@
                 </figure>
             </div>
         </div> 
+        
         <!--Попап удаления карточки-->
         <div class="popup delete-popup"> <!--Попап на всю страницу-->
             <div class="popup-container delete-popup-container"> <!--Окно формы-->
@@ -104,7 +107,24 @@
                 <h2 class="form-popup__title">
                     Вы уверены?
                 </h2>
-                <button type="submit" class="form-popup__button-save">Да</button>                    
+                <button type="button" class="form-popup__button-save">Да</button>                    
+            </div>
+        </div>
+        
+        <!--Попап редактирования аватара-->
+        <div class="popup edit-avatar-popup"> <!--Попап на всю страницу-->
+            <div class="popup-container edit-avatar-popup-container"> <!--Окно формы-->
+                <button class="close-icon edit-avatar-popup-container__close-icon"></button> <!--Кнопка закрытия-->
+                <form name="edit-avatar-form" action="#" class="form-popup form-popup_type_аватар" novalidate> <!--Форма-->
+                    <h2 class="form-popup__title">
+                        Обновить аватар
+                    </h2>
+                    <fieldset class="form-popup__inputs">
+                        <input type="url" id='avatar-input' name="avatar" class="form-popup__input form-popup__input_type_avatar" placeholder="Ссылка на изображение" required>
+                        <span class="avatar-input-error form-popup__error"></span>
+                    </fieldset>
+                    <button type="submit" class="form-popup__button-save">Сохранить</button>   
+                </form>
             </div>
         </div>
     </div>     

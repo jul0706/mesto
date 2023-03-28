@@ -1,19 +1,7 @@
 .profile__avatar {
     border-radius: 50%;
     object-fit: cover;
-    margin: 39px auto 22px auto;
     width: 120px;
     display: block;
-}
-
-@media screen and (min-width: 924px) {
-    .profile__avatar {
-        margin: 0;
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .profile__avatar {        
-        margin-right: 24px;
-    }
+    aspect-ratio: 1/1;
 }

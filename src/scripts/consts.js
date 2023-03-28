@@ -14,3 +14,4 @@ export const buttonOpenPopupAddCard = document.querySelector('.add-button');
 export const inputName = formProfileElement.querySelector('.form-popup__input_type_name');
 export const inputJob = formProfileElement.querySelector('.form-popup__input_type_job');
 export const placesElement = document.querySelector('.places');
+export const buttonOpenEditAvatarPopup = document.querySelector('.profile__avatar-button');
