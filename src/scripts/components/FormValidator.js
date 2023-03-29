@@ -55,8 +55,10 @@ export class FormValidator {
 
     _setSubmitListener = (form) => { // обработчик переключения состояния кнопки при отправке формы
         form.addEventListener('submit', () => {
+            if (!this.form.classList.contains(form-popup_type_delete)) { //если форма не удаления карточки
             this._buttonSubmit.disabled = true; // добавили кнопке атрибут disable
             this._buttonSubmit.classList.add(this._inactiveButtonClass); // добавили стиль
+            }
         })
     }
 

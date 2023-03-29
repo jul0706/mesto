@@ -104,10 +104,12 @@
         <div class="popup delete-popup"> <!--Попап на всю страницу-->
             <div class="popup-container delete-popup-container"> <!--Окно формы-->
                 <button class="close-icon delete-popup-container__close-icon"></button> <!--Кнопка закрытия-->
-                <h2 class="form-popup__title">
-                    Вы уверены?
-                </h2>
-                <button type="button" class="form-popup__button-save">Да</button>                    
+                <form name="delete-form" action="#" class="form-popup form-popup_type_delete" novalidate> <!--Форма-->
+                    <h2 class="form-popup__title">
+                        Вы уверены?
+                    </h2>
+                    <button type="submit" class="form-popup__button-save">Да</button>    
+                </form>
             </div>
         </div>
         
@@ -115,7 +117,7 @@
         <div class="popup edit-avatar-popup"> <!--Попап на всю страницу-->
             <div class="popup-container edit-avatar-popup-container"> <!--Окно формы-->
                 <button class="close-icon edit-avatar-popup-container__close-icon"></button> <!--Кнопка закрытия-->
-                <form name="edit-avatar-form" action="#" class="form-popup form-popup_type_аватар" novalidate> <!--Форма-->
+                <form name="edit-avatar-form" action="#" class="form-popup form-popup_type_avatar" novalidate> <!--Форма-->
                     <h2 class="form-popup__title">
                         Обновить аватар
                     </h2>
