@@ -2,7 +2,14 @@ export class Api {
     constructor() {
         this._url = 'https://mesto.nomoreparties.co/v1/cohort-62/';
         this._token = 'ad81bbad-9a90-4f3d-8a69-b0152768bbd9';
+    }
+
+    _checkResolve(res) {
+        if (res.ok) {
+            return res.json();
         }
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
 
     getDataServer (configUrl) { //метод получения информации с сервера
         return fetch(`${this._url}${configUrl}`, { // вернули запрос
@@ -12,11 +19,8 @@ export class Api {
             }
         })
         .then(res => { //проверили ответ
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject('Упс...Ошибка!')
-        })
+            return this._checkResolve(res);
+         })
     }
 
     editUserInfo (data, configUrl) { // метод изменения информации о пользователе
@@ -32,11 +36,8 @@ export class Api {
             })
         })
         .then(res => { //проверили ответ
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject('Упс...Ошибка!')
-        })
+            return this._checkResolve(res);
+         })
     }
 
     addCard (data, configUrl) { //метод добавленя карточки пользователем
@@ -52,11 +53,8 @@ export class Api {
             })
         })
         .then(res => { //проверили ответ
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject('Упс...Ошибка!')
-        })
+            return this._checkResolve(res);
+         })
     }
 
     deleteCard (id, configUrl) {
@@ -67,11 +65,8 @@ export class Api {
             }
         })
         .then(res => { //проверили ответ
-            if (res.ok) {
-                return Promise.resolve();
-            }
-            return Promise.reject('Упс...Ошибка!')
-        })
+            return this._checkResolve(res);
+         })
     }
 
     likeCard (id, configUrl, method) {
@@ -82,10 +77,23 @@ export class Api {
             }
         })
         .then(res => { //проверили ответ
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject('Упс...Ошибка!')
-        })
+            return this._checkResolve(res);
+         })
     }
+
+    changeAvatar(data, configUrl) { //изменение аватара пользователя
+        return fetch(`${this._url}${configUrl}`, {
+            method: 'PATCH',
+            headers: {
+                authorization: this._token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                avatar: data.avatar
+            })
+        })
+        .then(res => { //проверили ответ
+           return this._checkResolve(res);
+        })
+    } 
 }

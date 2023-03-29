@@ -7,6 +7,7 @@ export class PopupWithForm extends Popup {
         this._form = this._popup.querySelector('form');
         this._getInputValues = this._getInputValues.bind(this);
         this._inputsArray = Array.from(this._form.querySelectorAll('.form-popup__input'));
+        this._submitButton = this._form.querySelector('.form-popup__button-save');
     }
 
     _getInputValues () { // получение значений полей
@@ -26,9 +27,8 @@ export class PopupWithForm extends Popup {
         super.setEventListeners();
         this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
-            this._submitCallback(this._getInputValues());
+            this._submitCallback(this._getInputValues(),this._submitButton);
             this.close();
         })
-    }
-    
+    }  
 }
