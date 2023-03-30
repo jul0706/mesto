@@ -74,7 +74,7 @@ Promise.all([ //ждем, когда придут данные пользова�
     user.setUserInfo(values[0]); //обновили информацию о пользователе на странице
     cardsOnPage.renderItems(values[1]); //отрендерили карточки
 })
-.catch(err => checkError(err))ж
+.catch(err => checkError(err));
 
 const profilePopup = new PopupWithForm({ //создали экземпляр попапа формы редактирования профайла
     popupSelector: 'profile-popup',
