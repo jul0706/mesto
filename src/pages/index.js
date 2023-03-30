@@ -66,33 +66,15 @@ const cardsOnPage = new Section ( { // создали класс с началь
     '.places'
 );
 
-//const apiUser = api.getDataServer('users/me'); //загрузили информацию о пользователе с сервера
-
-Promise.all([
+Promise.all([ //ждем, когда придут данные пользователя и данные карточек
     api.getDataServer('users/me'),
-
     api.getDataServer('cards')
 ])
-
-.then((values)=>{ //попадаем сюда когда оба промиса будут выполнены
-    user.setUserInfo(values[0]);
-    cardsOnPage.renderItems(values[1]);
+.then((values)=>{ //когда получили данные
+    user.setUserInfo(values[0]); //обновили информацию о пользователе на странице
+    cardsOnPage.renderItems(values[1]); //отрендерили карточки
 })
-
-.catch(err => checkError(err))
-
-/*apiUser.then(res => { // когда получили данные пользователя
-    user.setUserInfo(res) //отразили данные на странице
-    const apiCards = api.getDataServer('cards'); //загрузили карточки с сервера
-    apiCards.then(res => { //когда получили данные карточек с сервера
-        cardsOnPage.renderItems(res) //разместили карточки на странице
-    })
-    .catch(err => checkError(err))
-        
-})
-.catch(err => checkError(err))*/
-
-
+.catch(err => checkError(err))ж
 
 const profilePopup = new PopupWithForm({ //создали экземпляр попапа формы редактирования профайла
     popupSelector: 'profile-popup',
