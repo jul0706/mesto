@@ -1,4 +1,5 @@
-import {placesElement} from '../../scripts/consts.js'
+import {placesElement} from '../utils/consts.js';
+import {checkError} from '../../src/pages/index.js'
 
 export class Card {
     constructor(item, templateSelector, handleCardClick, deletePopup, userId, api) {
@@ -69,6 +70,7 @@ export class Card {
                 this._likeButton.classList.remove('place__like-button_active');
                 }
             })
+            .catch(err => checkError(err))
         } else { //если пользователь еще не лайкал карточку 
         this._api.likeCard(this._id, 'cards', 'PUT'). //отправили запрос на лайк
             then(() => {
@@ -85,6 +87,7 @@ export class Card {
                     this._likeAmount.textContent = this._likes.length;
                 }
             })
+            .catch(err => checkError(err))
         }
     }
     

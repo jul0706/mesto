@@ -1,7 +1,7 @@
 export class Api {
-    constructor() {
-        this._url = 'https://mesto.nomoreparties.co/v1/cohort-62/';
-        this._token = 'ad81bbad-9a90-4f3d-8a69-b0152768bbd9';
+    constructor(url, token) {
+        this._url = url;
+        this._token = token;
     }
 
     _checkResolve(res) {

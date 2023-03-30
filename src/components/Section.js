@@ -4,8 +4,12 @@ export class Section { //отрисовка элементов на страни
         this._container = document.querySelector(containerSelector);
     }
     
-    addItem (item) {
+    addItem (item) { // добавление пользовательской карточки
         this._container.prepend(item)
+    }
+
+    addItems(items) { // добавление изначальных карточек
+        this._container.append(items);
     }
 
     renderItems(items) {

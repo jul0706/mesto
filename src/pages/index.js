@@ -1,15 +1,15 @@
 //импортируем классы
-import {Card} from '../scripts/components/Card.js';
+import {Card} from '../components/Card.js';
 import {formValidationConfig, buttonOpenPopupProfile, buttonOpenPopupAddCard, 
-    inputName, inputJob, buttonOpenChangeAvatarPopup} from '../scripts/consts.js';
-import {FormValidator} from '../scripts/components/FormValidator.js';
-import {Section} from '../scripts/components/Section.js';
-import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
-import { UserInfo } from '../scripts/components/UserInfo.js';
-import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
+    inputName, inputJob, buttonOpenChangeAvatarPopup} from '../utils/consts.js';
+import {FormValidator} from '../components/FormValidator.js';
+import {Section} from '../components/Section.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { UserInfo } from '../components/UserInfo.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
 import '../pages/index.css';
-import { Api } from '../scripts/components/Api.js';
-import {PopupWithConfirmation} from '../scripts/components/PopupWithConfirmation';
+import { Api } from '../components/Api.js';
+import {PopupWithConfirmation} from '../components/PopupWithConfirmation';
 
 function generateCard (data, selector) { //создание карточки
     const newCard = new Card (data, selector, function(place, url) {
@@ -23,7 +23,7 @@ function generateCard (data, selector) { //создание карточки
     return cardElement;
 }
 
-function checkError (err) { //проверка ответа от сервера на ошибку
+export function checkError (err) { //проверка ответа от сервера на ошибку
     alert(err)
 };
 
@@ -40,7 +40,9 @@ const popupDeleteCard = new PopupWithConfirmation('delete-popup', function(id, c
     apiDeletedCard.then (() => { //если запрос успешен
         card.remove(); //удалили элемент со страницы
         card = null; //удалили экземпляр карточки
+        popupDeleteCard.close() //закрыли попап
     })
+    .catch(err => checkError(err))
 });
 popupDeleteCard.setEventListeners();//назначили обработчики
 
@@ -53,30 +55,44 @@ const user = new UserInfo({ // создали экземпляр класса Us
     avatarElement: '.profile__avatar'
 });
 
-const api = new Api(); //создали класс API
+const api = new Api('https://mesto.nomoreparties.co/v1/cohort-62/', 'ad81bbad-9a90-4f3d-8a69-b0152768bbd9'); //создали класс API
 
 const cardsOnPage = new Section ( { // создали класс с начальными карточками
     renderer: (item) => {
         const card = generateCard(item, '#place__template');
-        cardsOnPage.addItem(card);
+        cardsOnPage.addItems(card);
     },
     }, 
     '.places'
 );
 
-const apiUser = api.getDataServer('users/me'); //загрузили информацию о пользователе с сервера
+//const apiUser = api.getDataServer('users/me'); //загрузили информацию о пользователе с сервера
 
-apiUser.then(res => { // когда получили данные пользователя
+Promise.all([
+    api.getDataServer('users/me'),
+
+    api.getDataServer('cards')
+])
+
+.then((values)=>{ //попадаем сюда когда оба промиса будут выполнены
+    user.setUserInfo(values[0]);
+    cardsOnPage.renderItems(values[1]);
+})
+
+.catch(err => checkError(err))
+
+/*apiUser.then(res => { // когда получили данные пользователя
     user.setUserInfo(res) //отразили данные на странице
     const apiCards = api.getDataServer('cards'); //загрузили карточки с сервера
     apiCards.then(res => { //когда получили данные карточек с сервера
-        res.reverse();
         cardsOnPage.renderItems(res) //разместили карточки на странице
     })
     .catch(err => checkError(err))
         
 })
-.catch(err => checkError(err))
+.catch(err => checkError(err))*/
+
+
 
 const profilePopup = new PopupWithForm({ //создали экземпляр попапа формы редактирования профайла
     popupSelector: 'profile-popup',
@@ -84,8 +100,9 @@ const profilePopup = new PopupWithForm({ //создали экземпляр п�
         const textDefault = buttonSave.textContent; //сохранили текст кнопки до отправки запроса
         renderLoading (true, buttonSave, textDefault)
         const apiUser = api.editUserInfo(formData, 'users/me'); //получить данные с сервера
-        apiUser.then(res =>{
+        apiUser.then(res =>{ //когда данные успешно получены
             user.editUserInfo(res); //установить новые данные на странице
+            profilePopup.close(); //закрыть попап
         })
         .catch(err => checkError(err))
         .finally(()=>{renderLoading (false, buttonSave, textDefault)})
@@ -93,12 +110,14 @@ const profilePopup = new PopupWithForm({ //создали экземпляр п�
 })
 profilePopup.setEventListeners(); //назначили слушатели
 
-buttonOpenPopupProfile.addEventListener ('click', function () { //добавлен слушатель кнопке редактирования профиля
-    profilePopup.open();
-    const userData = user.getUserInfo(); //получили информацию о пользователе
+function handleOpenPopupProfile () { //обработчик открытия попапа профайла
+    profilePopup.open(); //открыть попап
+    const userData = user.getUserInfo(); //получить информацию о пользователе со страницы
     inputName.value = userData.name; //передали содержимое заголовков страницы в поля формы профайла
     inputJob.value = userData.about;
-})
+}
+
+buttonOpenPopupProfile.addEventListener ('click', handleOpenPopupProfile) //назначить слушатель события кнопке редактирования данных пользователя
 
 const popupAddCard = new PopupWithForm({//создали попап добавления карточки пользователем
     popupSelector: 'add-button-popup',
@@ -109,6 +128,7 @@ const popupAddCard = new PopupWithForm({//создали попап добавл
         apiCard.then(res => {
             const card = generateCard(res, '#place__template'); //создать карточку
             cardsOnPage.addItem(card) //разместить на странице
+            popupAddCard.close() //закрыть попап
         })
         .catch(err => checkError(err))
         .finally(()=>{renderLoading (false, buttonSave, textDefault)})
@@ -128,7 +148,8 @@ const popupChangeAvatar = new PopupWithForm({ //попап редактиров�
         renderLoading (true, buttonSave, textDefault);
         const apiAvatar = api.changeAvatar(dataLink, 'users/me/avatar'); //получить данные с сервера
         apiAvatar.then(res => {
-            user.editAvatar(res) //изменить аватар
+            user.editAvatar(res); //изменить аватар
+            popupChangeAvatar.close();
         })
         .catch(err => checkError(err))
         .finally(()=>{renderLoading (false, buttonSave, textDefault)})

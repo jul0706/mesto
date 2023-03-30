@@ -14,13 +14,6 @@ export class UserInfo {
         return this.userFromPage;
     }
 
-    setUserInfo (data) { //получение данных пользователя
-        this._userNameElement.textContent=data.name; 
-        this._userJobElement.textContent=data.about; 
-        this._userAvatarElement.src = data.avatar;
-        this.userId = data._id; //сохранили ID текущего пользователя
-    }
-
     editUserInfo (data) {  //изменение информации о пользователе
         this._userNameElement.textContent=data.name; 
         this._userJobElement.textContent=data.about; 
@@ -28,5 +21,11 @@ export class UserInfo {
 
     editAvatar (data) { //изменение аватара пользователя
         this._userAvatarElement.src = data.avatar;
+    }
+
+    setUserInfo (data) { //получение данных пользователя
+        this.editUserInfo(data); //изменили информацию
+        this.editAvatar(data); //изменили аватар
+        this.userId = data._id; //сохранили ID текущего пользователя
     }
 }
